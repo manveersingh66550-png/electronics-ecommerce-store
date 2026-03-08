@@ -2,6 +2,8 @@
     padding: 8rem var(--spacing-container) 4rem;
     max-width: 1200px;
     margin: 0 auto;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .pageTitle {
@@ -93,6 +95,14 @@
 
 .panel {
     padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+    .panel {
+        padding: 1.5rem 1rem;
+    }
 }
 
 .sectionTitle {
@@ -249,6 +259,13 @@
 .paymentOption:hover {
     border-color: rgba(0, 0, 0, 0.15);
     box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+    .paymentOption {
+        padding: 1rem;
+        align-items: flex-start;
+    }
 }
 
 .paymentActive {
@@ -440,7 +457,26 @@
         flex-direction: column-reverse;
     }
 
-    .stepActions button {
+    .stepActions button,
+    .placeOrderBtn {
         width: 100%;
+    }
+
+    .container {
+        padding: 6rem 1rem 2rem;
+    }
+
+    .stepper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .stepLine {
+        display: none;
+    }
+
+    .grid {
+        gap: 1.5rem;
     }
 }
