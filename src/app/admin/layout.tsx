@@ -79,10 +79,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <span>{item.label}</span>
                     </Link>
                 ))}
-                <button className={styles.mobileNavItem} onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
-                    <LogOut size={20} />
-                    <span>Logout</span>
-                </button>
             </nav>
         </div>
     );
