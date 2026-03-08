@@ -65,6 +65,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Mobile Bottom Navigation */}
             <nav className={styles.mobileNav}>
+                <Link href="/" className={styles.mobileNavItem}>
+                    <ArrowLeft size={20} />
+                    <span>Store</span>
+                </Link>
                 {NAV_ITEMS.map((item) => (
                     <Link
                         key={item.href}
@@ -75,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <span>{item.label}</span>
                     </Link>
                 ))}
-                <button className={styles.mobileNavItem} onClick={handleLogout} style={{ border: 'none', background: 'none' }}>
+                <button className={styles.mobileNavItem} onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
                     <LogOut size={20} />
                     <span>Logout</span>
                 </button>
