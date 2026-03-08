@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
         hostname: 'gvxczxrqukweixncybri.supabase.co',
       },
     ],
+    qualities: [25, 50, 75, 100],
   },
 };
 

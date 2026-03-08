@@ -62,6 +62,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <main className={styles.mainContent}>
                 {children}
             </main>
+
+            {/* Mobile Bottom Navigation */}
+            <nav className={styles.mobileNav}>
+                {NAV_ITEMS.map((item) => (
+                    <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`${styles.mobileNavItem} ${pathname.startsWith(item.href) ? styles.active : ''}`}
+                    >
+                        <item.icon size={20} />
+                        <span>{item.label}</span>
+                    </Link>
+                ))}
+                <button className={styles.mobileNavItem} onClick={handleLogout} style={{ border: 'none', background: 'none' }}>
+                    <LogOut size={20} />
+                    <span>Logout</span>
+                </button>
+            </nav>
         </div>
     );
 }

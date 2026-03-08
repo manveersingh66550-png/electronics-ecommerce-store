@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://yalzfnxgswjsftjbxpce.supabase.co" />
         <link rel="dns-prefetch" href="https://yalzfnxgswjsftjbxpce.supabase.co" />
