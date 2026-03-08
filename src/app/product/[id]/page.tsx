@@ -62,12 +62,21 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         .eq('product_id', product.id)
         .order('sort_order', { ascending: true });
 
-    const mediaList = mediaData?.map((m: any) => ({
+    let mediaList = mediaData?.map((m: any) => ({
         id: m.id,
         url: m.url,
         type: m.type === 'video' ? 'video' : 'image',
         alt: m.alt_text
     })) || [];
+
+    if (mediaList.length === 0 && product.images && product.images.length > 0) {
+        mediaList = product.images.map((url: string, index: number) => ({
+            id: `img-${index}`,
+            url: url,
+            type: 'image',
+            alt: product.name
+        }));
+    }
 
     // 3. Fetch Variants
     const { data: variantData } = await supabase
@@ -99,7 +108,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     // 4. Fetch Reviews
     const { data: reviewsData } = await supabase
         .from('reviews')
-        .select('*')
+        .select(`
+            *,
+            profiles:user_id(full_name)
+        `)
         .eq('product_id', product.id)
         .eq('status', 'approved')
         .order('created_at', { ascending: false })
@@ -107,7 +119,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
     const reviews = reviewsData?.map((r: any) => ({
         id: r.id,
-        user_name: 'Verified Customer', // If you have auth.users joined, use it. For now, mock name.
+        user_name: r.profiles?.full_name || 'Verified Customer',
         rating: r.rating,
         comment: r.comment,
         created_at: r.created_at
@@ -115,7 +127,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
     const averageRating = reviews.length > 0
         ? reviews.reduce((acc: number, r: any) => acc + r.rating, 0) / reviews.length
-        : 5.0; // default 5 star
+        : 0;
 
     return (
         <>
