@@ -150,7 +150,7 @@ export default function SignupPage() {
                 <div className={styles.separator}>or</div>
 
                 <Button
-                    variant="outline"
+                    variant="secondary"
                     className={styles.socialBtn}
                     onClick={handleGoogleLogin}
                     disabled={isLoading}
