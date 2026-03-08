@@ -1,0 +1,204 @@
+.pageWrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8rem 2rem 6rem;
+    min-height: 100vh;
+}
+
+/* =========================================
+   Hero Header
+   ========================================= */
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.heroBadge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    margin-bottom: 1.25rem;
+}
+
+.heroTitle {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.heroDesc {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* =========================================
+   FAQ Grid
+   ========================================= */
+.faqGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.categoryBlock {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.categoryBlock:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+}
+
+.categoryTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    letter-spacing: -0.01em;
+}
+
+/* =========================================
+   Accordion
+   ========================================= */
+.accordionGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordionItem {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.accordionItem:last-child {
+    border-bottom: none;
+}
+
+.accordionTrigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.15rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    gap: 1rem;
+}
+
+.question {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+.chevron {
+    color: #94a3b8;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.open .chevron {
+    transform: rotate(180deg);
+    color: #10b981;
+}
+
+.accordionContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.open .accordionContent {
+    max-height: 300px;
+    padding-bottom: 1rem;
+}
+
+.answer {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.75;
+    padding-right: 2rem;
+}
+
+/* =========================================
+   Contact CTA
+   ========================================= */
+.contactCta {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 24px;
+}
+
+.ctaTitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.ctaDesc {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.ctaBtn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: #0f172a;
+    color: white;
+    border-radius: 99px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
+}
+
+.ctaBtn:hover {
+    background: #10b981;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+@media (max-width: 768px) {
+    .pageWrapper {
+        padding: 7rem 1rem 4rem;
+    }
+
+    .categoryBlock {
+        padding: 1.5rem;
+    }
+
+    .contactCta {
+        padding: 2rem 1.5rem;
+    }
+}

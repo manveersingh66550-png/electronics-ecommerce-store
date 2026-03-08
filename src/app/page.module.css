@@ -1,0 +1,612 @@
+/* =========================================================================
+   ULTRA-PREMIUM LIGHT LIQUID GLASS + ANIMATED MESH GRADIENT
+   ========================================================================= */
+
+.homeContainer {
+  position: relative;
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: transparent;
+  color: #0f172a;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+}
+
+/* Subtle grain overlay to give it an expensive, editorial texture */
+
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* The true Vision Pro / Premium Apple Glass effect */
+.liquidGlass {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-radius: 32px;
+}
+
+/* =========================================================
+   Masterpiece Hero Section (Refined)
+   ========================================================= */
+.heroSection {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 8rem;
+  padding-bottom: 4rem;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin-bottom: 2rem;
+  z-index: 30;
+}
+
+.heroBadge {
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.4);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1rem;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 7vw, 6rem);
+  /* Reduced size for better balance */
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+
+  /* Premium Dark-to-Emerald Gradient Text */
+  background: linear-gradient(135deg, #020617 0%, #1e293b 40%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.1em;
+  /* Prevents descenders from getting clipped by background-clip */
+}
+
+.heroDesc {
+  font-size: 1.35rem;
+  color: #475569;
+  max-width: 42rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.heroBtnPrimary {
+  background: #020617;
+  color: white;
+  padding: 1.25rem 3.5rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heroBtnPrimary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  background: #0f172a;
+}
+
+.heroBtnSecondary {
+  background: transparent;
+  color: #020617;
+  padding: 1.25rem 3.5rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: 1px solid rgba(2, 6, 23, 0.2);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heroBtnSecondary:hover {
+  background: rgba(2, 6, 23, 0.05);
+  border-color: rgba(2, 6, 23, 0.5);
+}
+
+.heroImageContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 700px;
+  margin-top: 2rem;
+  z-index: 20;
+}
+
+.mainHeroImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.2));
+  transform-origin: bottom center;
+}
+
+
+
+/* =========================================================
+   Horizontal Categories Flow
+   ========================================================= */
+.categoriesSection {
+  padding: 4rem 0 8rem 0;
+  overflow: hidden;
+}
+
+.categoriesWrapper {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.categoryCard {
+  width: 190px;
+  height: 210px;
+  border-radius: 40px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.categoryCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.categoryCardContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 10;
+}
+
+.categoryIconDark {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 16px;
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(30, 41, 59, 0.15);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.categoryCard:hover .categoryIconDark {
+  transform: scale(1.1);
+}
+
+.categoryName {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* =========================================================
+   Product Spotlight (Samsung Galaxy S26 Ultra)
+   ========================================================= */
+.spotlightSection {
+  padding: 8rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlightContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .spotlightContainer {
+    flex-direction: row;
+    align-items: center;
+    gap: 6rem;
+  }
+}
+
+.spotlightText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.spotlightBadge {
+  color: #10b981;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.spotlightTitle {
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #0f172a;
+  max-width: 600px;
+}
+
+.spotlightDesc {
+  font-size: 1.25rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* Feature Cards Grid */
+.spotlightFeatures {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.featureCard {
+  width: 150px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: left;
+  background: rgba(248, 250, 252, 0.4);
+  border-radius: 20px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.featureCard:hover {
+  transform: translateY(-2px);
+  background: rgba(248, 250, 252, 0.7);
+}
+
+.featureIcon {
+  color: #020617;
+}
+
+.featureText {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #020617;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+/* Specific Solid Black Buttons Container */
+.spotlightActionButtons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.premiumBtnBlack {
+  background: #020617;
+  color: #ffffff;
+  padding: 1.125rem 2.5rem;
+  border-radius: 9999px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.02em;
+}
+
+.premiumBtnBlack:hover {
+  background: #0f172a;
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.spotlightImageWrap {
+  flex: 1;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spotlightImage {
+  width: 100%;
+  height: auto;
+  max-width: 650px;
+  object-fit: contain;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.25));
+}
+
+
+/* =========================================
+   7. DEALS / VOUCHER SECTION (NEW)
+   ========================================= */
+.dealsSection {
+  padding: 2rem 1rem;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.dealsCard {
+  position: relative;
+  overflow: hidden;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+}
+
+.dealsBlobTop {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(16, 185, 129, 0.15);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dealsBlobBottom {
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: rgba(5, 150, 105, 0.15);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dealsContentWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .dealsContentWrap {
+    flex-direction: row;
+    padding: 4rem 5rem;
+    justify-content: space-between;
+  }
+}
+
+.dealsText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .dealsText {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.dealsBadge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.375rem 1rem;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.dealsTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.dealsHighlight {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.dealsDesc {
+  color: #475569;
+  font-size: 1.125rem;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.dealsMinOrder {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-style: italic;
+  margin-top: 0.35rem;
+}
+
+.dealsCodeBox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.dealsIcon {
+  color: #10b981;
+}
+
+.dealsCodeLabel {
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dealsCodeValue {
+  color: #0f172a;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+}
+
+.dealsCountdown {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.dealsBtn {
+  margin-top: 1rem;
+  background: #020617;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dealsBtn:hover {
+  background: #0f172a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.3);
+}
+
+.dealsGraphic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .dealsGraphic {
+    justify-content: flex-end;
+  }
+}
+
+.dealsGraphicInner {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transform: rotate(2deg);
+  transition: transform 0.4s ease;
+}
+
+.dealsGraphicInner:hover {
+  transform: rotate(0deg);
+}
+
+.dealsGraphicContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.dealsZapIcon {
+  color: #10b981;
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3));
+}
+
+.dealsGraphicTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.dealsGraphicSub {
+  font-size: 0.875rem;
+  color: #475569;
+}

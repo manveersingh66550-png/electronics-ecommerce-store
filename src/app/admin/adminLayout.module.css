@@ -1,0 +1,109 @@
+.adminContainer {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-color);
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.sidebar {
+    width: 280px;
+    position: sticky;
+    top: 1rem;
+    height: calc(100vh - 2rem);
+}
+
+.sidebarPanel {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    padding-left: 0.5rem;
+}
+
+.logoIcon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-accent);
+    border-radius: 6px;
+}
+
+.logoText {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.navItem:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--fg-color);
+}
+
+.active {
+    background: var(--background);
+    color: var(--fg-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.bottomNav {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+    color: #ef4444;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.mainContent {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        display: none;
+        /* In a real app we'd need a mobile menu drawer */
+    }
+}

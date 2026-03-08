@@ -1,0 +1,100 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.variantGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.groupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.groupName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--fg-color);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.selectedValue {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.optionsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.optionBtn {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    min-width: 3rem;
+    text-align: center;
+}
+
+.optionBtn:hover {
+    color: var(--fg-color);
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.optionBtn.active {
+    background: white;
+    border-color: var(--primary-accent);
+    color: var(--primary-accent);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(144, 238, 144, 0.15);
+}
+
+.optionBtn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.02);
+    text-decoration: line-through;
+}
+
+/* Color Options specific styles */
+.colorOption {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 0;
+    position: relative;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: none;
+}
+
+.colorOptionInner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.colorOption.active {
+    border-color: var(--primary-accent);
+    transform: scale(1.1);
+}
+
+.colorOption:hover:not(.active) {
+    transform: scale(1.05);
+}

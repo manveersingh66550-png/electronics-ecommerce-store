@@ -1,0 +1,82 @@
+.header {
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.section {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.75rem;
+}
+
+.sectionHeader h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.formStack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+}
+
+.hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+}
+
+.error {
+    font-size: 0.85rem;
+    color: #dc2626;
+    margin-bottom: 0.75rem;
+}
+
+.success {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: #16a34a;
+    margin-bottom: 0.75rem;
+}
+
+.sectionActions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+@media (max-width: 640px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+}

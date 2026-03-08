@@ -1,0 +1,429 @@
+/* =========================================================================
+   NEXCART — PREMIUM SOLID NAVBAR
+   Fully opaque. No content bleed-through. Premium & professional.
+   ========================================================================= */
+
+/* ── Base Navbar ── */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0.75rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* ── Inner Container ── */
+.navInner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    height: 56px;
+}
+
+/* ── Left Group: Logo ── */
+.leftGroup {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: baseline;
+    text-decoration: none;
+    gap: 0;
+}
+
+.logoText {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.04em;
+    color: #0f172a;
+}
+
+.logoDot {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #10b981;
+}
+
+/* ── Center Navigation ── */
+.centerNav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.navLink {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #64748b;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navLink:hover {
+    color: #0f172a;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.chevron {
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+}
+
+.dropdownContainer:hover .chevron {
+    transform: rotate(180deg);
+}
+
+/* ── Dropdown ── */
+.dropdownContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 6px;
+    min-width: 200px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1001;
+}
+
+.dropdownContainer:hover .dropdownMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdownItem {
+    display: block;
+    padding: 0.625rem 1rem;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+.dropdownItem:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* ── Right Group ── */
+.rightGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* ── Search ── */
+.searchWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    color: #94a3b8;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.searchInput {
+    width: 220px;
+    padding: 0.55rem 0.75rem 0.55rem 2.25rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.searchInput::placeholder {
+    color: #94a3b8;
+}
+
+.searchInput:focus {
+    border-color: #10b981;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    width: 280px;
+}
+
+/* ── Action Icons ── */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.iconBtn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #475569;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.iconBtn:hover {
+    color: #0f172a;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #10b981;
+    color: #ffffff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    line-height: 1;
+}
+
+/* ── User Pill ── */
+.userPill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    border-radius: 999px;
+    background: #0f172a;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    margin-left: 4px;
+}
+
+.userPill:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.userName {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.avatarFallback {
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.userDropdownContainer {
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+.userDropdownMenu {
+    min-width: 220px;
+    right: 0;
+    left: auto;
+    transform: translateY(8px);
+}
+
+.userDropdownContainer:hover .userDropdownMenu {
+    transform: translateY(0);
+}
+
+.dropdownIcon {
+    margin-right: 12px;
+    color: #64748b;
+    transition: color 0.15s ease;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdownItem:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.dropdownItem:hover .dropdownIcon {
+    color: #0f172a;
+}
+
+.dropdownDivider {
+    height: 1px;
+    background: #f1f5f9;
+    margin: 4px 0;
+}
+
+.signOutBtn {
+    color: #ef4444;
+}
+
+.signOutBtn .dropdownIcon {
+    color: #f87171;
+}
+
+.signOutBtn:hover {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.signOutBtn:hover .dropdownIcon {
+    color: #dc2626;
+}
+
+/* ── Login Button ── */
+.loginBtn {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #ffffff;
+    background: #0f172a;
+    padding: 0.55rem 1.25rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    margin-left: 4px;
+}
+
+.loginBtn:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.loginPlaceholder {
+    width: 90px;
+    height: 36px;
+}
+
+/* ── Mobile Menu Button ── */
+.menuButton {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: #0f172a;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.menuButton:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .menuButton {
+        display: flex;
+    }
+
+    .centerNav {
+        display: none;
+    }
+
+    .searchWrap {
+        display: none;
+    }
+
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .navInner {
+        height: 48px;
+        gap: 0.5rem;
+    }
+
+    .iconBtn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .loginBtn {
+        padding: 0.45rem 1rem;
+        font-size: 0.8rem;
+    }
+}

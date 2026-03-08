@@ -1,0 +1,154 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    min-height: 80vh;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--fg-color) 0%, #666 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.panel {
+    padding: 2.5rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formGroup label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--fg-color);
+}
+
+.input,
+.textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-sm, 8px);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--fg-color);
+    transition: all 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: var(--primary-accent-dark, #4a7a1a);
+    box-shadow: 0 0 0 3px rgba(74, 122, 26, 0.1);
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.infoSection {
+    position: sticky;
+    top: 6rem;
+}
+
+.infoPanel {
+    padding: 2.5rem;
+}
+
+.infoPanel h3 {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.infoText {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+.contactDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.detailRow {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.icon {
+    color: var(--text-muted);
+    margin-top: 0.1rem;
+}
+
+.detailRow strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: var(--fg-color);
+}
+
+.detailRow p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .infoSection {
+        position: relative;
+        top: 0;
+        order: -1;
+        /* Move info above form on mobile */
+    }
+
+    .header {
+        margin-bottom: 3rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+}

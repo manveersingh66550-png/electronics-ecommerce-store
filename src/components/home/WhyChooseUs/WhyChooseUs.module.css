@@ -1,0 +1,93 @@
+.section {
+    padding: 2rem 2rem 6rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.sectionLabel {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(12px);
+    transition: all 0.35s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+    border-color: rgba(16, 185, 129, 0.15);
+}
+
+.iconWrap {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.12));
+    margin-bottom: 1.5rem;
+    transition: all 0.35s ease;
+}
+
+.card:hover .iconWrap {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.2));
+    transform: scale(1.08);
+}
+
+.icon {
+    color: #10b981;
+}
+
+.cardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.cardDesc {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 220px;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card {
+        padding: 2rem 1.25rem;
+    }
+}

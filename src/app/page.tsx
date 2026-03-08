@@ -1,65 +1,263 @@
-import Image from "next/image";
+"use client";
+
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Smartphone, Laptop, HeadphonesIcon, Gamepad2, Watch, Plus, ArrowRight, Zap, ShieldCheck, BatteryCharging, Tablet, Camera, LayoutGrid, Camera as CameraIcon, Cpu, PenLine, TicketPercent, Clock } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { useCartStore } from '@/store/cartStore';
+import { AnimatedSection } from '@/components/home/AnimatedSection/AnimatedSection';
+import { LiquidGlass } from '@/components/home/LiquidGlass/LiquidGlass';
+import { BestSellers } from '@/components/home/BestSellers/BestSellers';
+import { BrandStrip } from '@/components/home/BrandStrip/BrandStrip';
+import { WhyChooseUs } from '@/components/home/WhyChooseUs/WhyChooseUs';
+import styles from './page.module.css';
+
 
 export default function Home() {
+  const [activeCoupon, setActiveCoupon] = useState<{ code: string; discount_type: string; value: number; expiry_date: string | null } | null>(null);
+  const [spotlightProduct, setSpotlightProduct] = useState<any>(null);
+  const addItem = useCartStore((state) => state.addItem);
+  const [spotlightAdded, setSpotlightAdded] = useState(false);
+
+  useEffect(() => {
+    async function fetchCoupon() {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from('coupons')
+        .select('code, discount_type, value, expiry_date')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (!error && data) {
+        // Simple check if it's expired
+        if (data.expiry_date && new Date(data.expiry_date) < new Date()) {
+          return;
+        }
+        setActiveCoupon(data);
+      }
+    }
+    fetchCoupon();
+  }, []);
+
+  // Fetch spotlight product (Samsung Galaxy)
+  useEffect(() => {
+    async function fetchSpotlight() {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from('products')
+        .select('id, name, price, images, stock')
+        .ilike('name', '%samsung%galaxy%')
+        .limit(1)
+        .single();
+      if (data) setSpotlightProduct(data);
+    }
+    fetchSpotlight();
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={styles.homeContainer}>
+      {/* 1. MASTERPIECE HERO SECTION */}
+      <section className={`${styles.section} ${styles.heroSection}`}>
+        <div className={styles.heroContent}>
+          <AnimatedSection direction="down" delay={0.1}>
+            <span className={styles.heroBadge}>The Future of Tech</span>
+          </AnimatedSection>
+          <AnimatedSection delay={0.2}>
+            <h1 className={styles.heroTitle}>Elegance in Innovation</h1>
+          </AnimatedSection>
+          <AnimatedSection direction="up" delay={0.3}>
+            <p className={styles.heroDesc}>
+              Discover a curated collection of premium electronics where cutting-edge performance meets uncompromising design.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection direction="up" delay={0.4} className={styles.heroActions}>
+            <Link href="/shop">
+              <button className={styles.heroBtnPrimary}>Shop Collection</button>
+            </Link>
+            <Link href="/shop/categories">
+              <button className={styles.heroBtnSecondary}>View Categories</button>
+            </Link>
+          </AnimatedSection>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+
+        {/* User's Edge-to-Edge Transparent iPhone Image */}
+        <AnimatedSection direction="up" delay={0.6} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <div className={styles.heroImageContainer}>
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/hero-phones.png"
+              alt="Titanium Flagship Smartphone Lineup"
+              fill
+              className={styles.mainHeroImage}
+              priority
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+        </AnimatedSection>
+      </section>
+
+
+
+      {/* 3. HORIZONTAL CATEGORIES */}
+      <section className={`${styles.section} ${styles.categoriesSection}`}>
+        <AnimatedSection delay={0.1}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Explore by Category</h2>
+            <p className={styles.heroDesc} style={{ fontSize: '1.25rem' }}>Find the perfect tech gear tailored to your lifestyle and needs.</p>
+          </div>
+          <div className={styles.categoriesWrapper}>
+            {[
+              { name: 'Smartphones', icon: Smartphone, link: '/shop/category/smartphones' },
+              { name: 'Laptops', icon: Laptop, link: '/shop/category/laptops' },
+              { name: 'Audio', icon: HeadphonesIcon, link: '/shop/category/audio' },
+              { name: 'Watch', icon: Watch, link: '/shop/category/wearables' },
+              { name: 'Explore More', icon: LayoutGrid, link: '/shop/categories' },
+            ].map((cat, idx) => (
+              <Link key={idx} href={cat.link} style={{ textDecoration: 'none' }}>
+                <LiquidGlass className={styles.categoryCard} config={{ radius: 40, border: 0.02, frost: 0.15, blur: 20 }}>
+                  <div className={styles.categoryCardContent}>
+                    <div className={styles.categoryIconDark}>
+                      <cat.icon size={28} color="white" strokeWidth={1.5} />
+                    </div>
+                    <span className={styles.categoryName}>{cat.name}</span>
+                  </div>
+                </LiquidGlass>
+              </Link>
+            ))}
+          </div>
+        </AnimatedSection>
+      </section>
+
+      {/* 3.5 DEALS / VOUCHER SECTION (New) */}
+      {activeCoupon && (
+        <section className={`${styles.section} ${styles.dealsSection}`}>
+          <AnimatedSection delay={0.1}>
+            <LiquidGlass className={styles.dealsCard} config={{ radius: 32, frost: 0.15, blur: 25, border: 0.05 }}>
+
+              {/* Abstract decorative backgrounds inside the glass */}
+              <div className={styles.dealsBlobTop}></div>
+              <div className={styles.dealsBlobBottom}></div>
+
+              <div className={styles.dealsContentWrap}>
+                <div className={styles.dealsText}>
+                  <span className={styles.dealsBadge}>Limited Time Offer</span>
+                  <h2 className={styles.dealsTitle}>
+                    Get <span className={styles.dealsHighlight}>
+                      {activeCoupon.discount_type === 'percentage' ? `${activeCoupon.value}% OFF` : `₹${activeCoupon.value} OFF`}
+                    </span><br />
+                    Premium Tech
+                  </h2>
+                  <p className={styles.dealsDesc}>
+                    Upgrade your setup today. Apply this exclusive voucher at checkout or grab the deal now to auto-sync it to your cart.
+                  </p>
+                  <p className={styles.dealsMinOrder}>*Applicable on orders above ₹10,000</p>
+
+                  <div className={styles.dealsCodeBox}>
+                    <TicketPercent size={24} className={styles.dealsIcon} />
+                    <span className={styles.dealsCodeLabel}>Use Code:</span>
+                    <span className={styles.dealsCodeValue}>{activeCoupon.code}</span>
+                  </div>
+
+                  <Link href={`/cart?coupon=${activeCoupon.code}`} style={{ textDecoration: 'none' }}>
+                    <button className={styles.dealsBtn}>
+                      Shop Deals Now <ArrowRight size={18} />
+                    </button>
+                  </Link>
+                </div>
+
+                <div className={styles.dealsGraphic}>
+                  <LiquidGlass className={styles.dealsGraphicInner} config={{ radius: 24, frost: 0.1, blur: 10 }}>
+                    <div className={styles.dealsGraphicContent}>
+                      <Zap size={64} className={styles.dealsZapIcon} strokeWidth={1} />
+                      <h3 className={styles.dealsGraphicTitle}>Flash Sale</h3>
+                      <p className={styles.dealsGraphicSub}>Don't miss out on these exclusive savings.</p>
+                    </div>
+                  </LiquidGlass>
+                </div>
+              </div>
+
+            </LiquidGlass>
+          </AnimatedSection>
+        </section>
+      )}
+
+      {/* 3.8 BEST SELLERS */}
+      <BestSellers />
+
+      {/* 4. PRODUCT SPOTLIGHT (Samsung S26 Ultra) */}
+      <section className={`${styles.section} ${styles.spotlightSection}`}>
+        <div className={styles.spotlightContainer}>
+          <AnimatedSection direction="left" delay={0.2} style={{ flex: 1 }}>
+            <div className={styles.spotlightText}>
+              <span className={styles.spotlightBadge}>FLAGSHIP MOBILE</span>
+              <h2 className={styles.spotlightTitle}>Samsung Galaxy S26 Ultra.</h2>
+              <p className={styles.spotlightDesc}>
+                Redefine mobile communication, photography, and performance. The Samsung Galaxy S26 Ultra is the ultimate power tool for a connected world.
+              </p>
+
+              <div className={styles.spotlightFeatures}>
+                <div className={styles.featureCard}>
+                  <CameraIcon size={28} strokeWidth={1.5} className={styles.featureIcon} />
+                  <span className={styles.featureText}>ULTRA<br />CAMERA</span>
+                </div>
+                <div className={styles.featureCard}>
+                  <Cpu size={28} strokeWidth={1.5} className={styles.featureIcon} />
+                  <span className={styles.featureText}>POWERFUL<br />CHIP</span>
+                </div>
+                <div className={styles.featureCard}>
+                  <PenLine size={28} strokeWidth={1.5} className={styles.featureIcon} />
+                  <span className={styles.featureText}>S PEN<br />SUPPORT</span>
+                </div>
+              </div>
+
+              <div className={styles.spotlightActionButtons}>
+                <button
+                  className={styles.premiumBtnBlack}
+                  onClick={() => {
+                    if (spotlightProduct) {
+                      addItem({
+                        product_id: spotlightProduct.id,
+                        name: spotlightProduct.name || 'Samsung Galaxy S26 Ultra',
+                        price: spotlightProduct.price,
+                        quantity: 1,
+                        image_url: spotlightProduct.images?.[0] || '/Samsung-S26ultra-nobg.png',
+                        stock: spotlightProduct.stock || 10,
+                      });
+                      setSpotlightAdded(true);
+                      setTimeout(() => setSpotlightAdded(false), 1500);
+                    }
+                  }}
+                >
+                  {spotlightAdded ? '✓ Added!' : 'Add to Cart'}
+                </button>
+                <Link href={spotlightProduct ? `/product/${spotlightProduct.id}` : '/shop'} style={{ textDecoration: 'none' }}>
+                  <button className={styles.premiumBtnBlack}>View Product</button>
+                </Link>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection direction="right" delay={0.4} className={styles.spotlightImageWrap}>
+            <Image
+              src="/Samsung-S26ultra-nobg.png"
+              alt="Samsung Galaxy S22 Ultra"
+              width={800}
+              height={1000}
+              className={styles.spotlightImage}
+              quality={100}
+              priority
+              unoptimized
+            />
+          </AnimatedSection>
         </div>
-      </main>
+      </section>
+
+      {/* 5. BRAND STRIP */}
+      <BrandStrip />
+
+      {/* 6. WHY CHOOSE US */}
+      <WhyChooseUs />
+
     </div>
   );
 }

@@ -1,0 +1,446 @@
+.container {
+    padding: 8rem var(--spacing-container) 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pageTitle {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+}
+
+/* Stepper */
+.stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 3rem;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-pill, 100px);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+    cursor: default;
+}
+
+.stepActive {
+    color: var(--fg-color);
+    cursor: pointer;
+}
+
+.stepCurrent {
+    background: var(--panel-bg, rgba(255, 255, 255, 0.7));
+    box-shadow: var(--shadow-sm);
+    font-weight: 500;
+}
+
+.stepIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stepLabel {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .stepLabel {
+        display: inline;
+    }
+}
+
+.stepLine {
+    width: 40px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin: 0 0.5rem;
+    transition: background 0.3s ease;
+}
+
+.stepLineActive {
+    background: var(--primary-accent, #c6fc44);
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 992px) {
+    .grid {
+        grid-template-columns: 1.5fr 1fr;
+        gap: 3rem;
+    }
+}
+
+.formSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.panel {
+    padding: 2rem;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.note {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.fullWidth {
+    grid-column: 1 / -1;
+}
+
+/* Shipping Options */
+.shippingOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.shippingOption {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md, 12px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--background, #fff);
+}
+
+.shippingOption:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-sm);
+}
+
+.shippingActive {
+    border-color: var(--primary-accent, #c6fc44) !important;
+    background: rgba(198, 252, 68, 0.04);
+    box-shadow: 0 0 0 1px var(--primary-accent, #c6fc44);
+}
+
+.shippingOption input[type="radio"] {
+    accent-color: var(--fg-color);
+    width: 18px;
+    height: 18px;
+}
+
+.shippingInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.shippingLabel {
+    font-weight: 500;
+}
+
+.shippingEstimate {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.shippingPrice {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Step Actions */
+.stepActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputLabel {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--panel-bg, rgba(255, 255, 255, 0.7));
+    backdrop-filter: blur(8px);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--fg-color);
+    outline: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.select:focus {
+    border-color: var(--primary-accent, #c6fc44);
+    box-shadow: 0 0 0 2px rgba(198, 252, 68, 0.1);
+}
+
+.select:disabled {
+    background: rgba(0, 0, 0, 0.03);
+    cursor: not-allowed;
+    color: var(--text-muted);
+}
+
+/* Payment */
+.paymentMethods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.paymentOption {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md, 12px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--background, #fff);
+}
+
+.paymentOption:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-sm);
+}
+
+.paymentActive {
+    border-color: var(--primary-accent, #c6fc44) !important;
+    background: rgba(198, 252, 68, 0.04);
+    box-shadow: 0 0 0 1px var(--primary-accent, #c6fc44);
+}
+
+.paymentDisabled {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-md, 12px);
+    background: rgba(0, 0, 0, 0.01);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.paymentOption input[type="radio"] {
+    accent-color: var(--fg-color);
+    width: 18px;
+    height: 18px;
+}
+
+.paymentInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.paymentLabel {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.paymentSub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.comingSoon {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: var(--text-muted);
+}
+
+/* Summary Sidebar */
+.summarySection {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+}
+
+.orderItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.itemRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.itemThumb {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm, 8px);
+    background: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.itemInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.itemName {
+    font-size: 0.85rem;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.itemPrice {
+    font-weight: 500;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    margin: 1.25rem 0;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.totalRow {
+    color: var(--fg-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.placeOrderBtn {
+    min-width: 200px;
+}
+
+.secureBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.errorBanner {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-md, 12px);
+    padding: 0.85rem 1.25rem;
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 6rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.emptyState h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--fg-color);
+}
+
+.spinnerAnim {
+    animation: checkoutSpin 1s linear infinite;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+@keyframes checkoutSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 640px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .stepActions {
+        flex-direction: column-reverse;
+    }
+
+    .stepActions button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,188 @@
+.brandStripSection {
+    padding: 6rem 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.stripContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.stripTitle {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #64748b;
+    text-align: center;
+}
+
+.glassWrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 32px;
+}
+
+/* Fading edges for the slider */
+.glassWrapper::before,
+.glassWrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.glassWrapper::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(248, 250, 252, 0.95), transparent);
+}
+
+.glassWrapper::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(248, 250, 252, 0.95), transparent);
+}
+
+.logoTrack {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: slide 35s linear infinite;
+    padding: 2.5rem 0;
+}
+
+.logoTrack:hover {
+    animation-play-state: paused;
+}
+
+.logoItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 3.5rem;
+    color: #0f172a;
+    opacity: 0.3;
+    transition: all 0.4s ease;
+    user-select: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logoItem:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* Brand text default */
+.brandText {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #0f172a;
+}
+
+/* Brand-specific styling */
+.apple .brandText {
+    font-size: 2.2rem;
+    font-weight: 400;
+}
+
+.samsung .brandText {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+}
+
+.sony .brandText {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+}
+
+.logitech .brandText {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-style: italic;
+}
+
+.hp .brandText {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.asus .brandText {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+}
+
+.dell .brandText {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.intel .brandText {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-style: italic;
+}
+
+.lenovo .brandText {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.microsoft .brandText {
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .logoItem {
+        padding: 0 2rem;
+    }
+
+    .brandText {
+        font-size: 1.2rem;
+    }
+
+    .apple .brandText {
+        font-size: 1.6rem;
+    }
+
+    .glassWrapper::before,
+    .glassWrapper::after {
+        width: 60px;
+    }
+}

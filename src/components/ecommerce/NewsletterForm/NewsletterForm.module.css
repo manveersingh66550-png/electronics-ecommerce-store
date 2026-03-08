@@ -1,0 +1,30 @@
+.newsletterForm {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletterForm input {
+    flex: 1;
+    padding: 0.85rem 1.25rem;
+    border-radius: var(--radius-full, 999px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: var(--fg-color);
+    transition: all 0.2s;
+}
+
+.newsletterForm input:focus {
+    outline: none;
+    border-color: var(--primary-accent-dark, #4a7a1a);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 3px rgba(74, 122, 26, 0.1);
+}
+
+@media (max-width: 640px) {
+    .newsletterForm {
+        flex-direction: column;
+    }
+}

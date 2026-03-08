@@ -1,0 +1,267 @@
+.container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    /* Account for navbar */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8rem var(--spacing-container) 4rem;
+    gap: 3rem;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.sidebarPanel {
+    position: sticky;
+    top: 7rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 500px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--primary-accent);
+    color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.userName {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.userEmail {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.navItem:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--fg-color);
+}
+
+.navItem.active {
+    background: var(--background);
+    color: var(--fg-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.bottomNav {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    color: #ef4444;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Main Content */
+.mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.header {
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.statCard {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.statHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.statIcon {
+    color: var(--fg-color);
+}
+
+.statValue {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.statLink {
+    color: var(--primary-accent-hover);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.ordersPanel {
+    padding: 2rem;
+}
+
+.orderList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.orderItem {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    align-items: center;
+}
+
+.orderCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.orderLabel {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.orderText {
+    font-weight: 500;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.statusBadge.delivered {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebarPanel {
+        position: relative;
+        top: 0;
+        min-height: auto;
+    }
+
+    .orderItem {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1.5rem;
+    }
+}
+
+.statusBadge.shipped {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.statusBadge.paid {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+}
+
+.orderItem {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: var(--radius-md, 12px);
+    padding: 0.75rem 0;
+}
+
+a.orderItem:hover {
+    background: rgba(0, 0, 0, 0.02);
+}

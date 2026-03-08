@@ -1,0 +1,186 @@
+.pageWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem 6rem;
+    min-height: 100vh;
+}
+
+/* =========================================
+   Hero Header
+   ========================================= */
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.heroBadge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    margin-bottom: 1.25rem;
+}
+
+.heroTitle {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.heroDesc {
+    font-size: 1.125rem;
+    color: #64748b;
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* =========================================
+   Category Grid
+   ========================================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.cardLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card {
+    border-radius: 28px;
+    transition: all 0.35s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.cardContent {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.iconWrap {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.12));
+    margin-bottom: 1.5rem;
+    transition: all 0.35s ease;
+}
+
+.card:hover .iconWrap {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(5, 150, 105, 0.25));
+    transform: scale(1.08);
+}
+
+.icon {
+    color: #10b981;
+}
+
+.cardTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+}
+
+.cardCount {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.cardArrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+}
+
+.card:hover .cardArrow {
+    color: #10b981;
+    transform: translateX(4px);
+}
+
+/* =========================================
+   Loading State
+   ========================================= */
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    color: #64748b;
+    gap: 1.5rem;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 0, 0, 0.06);
+    border-top-color: #10b981;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+@media (max-width: 768px) {
+    .pageWrapper {
+        padding: 7rem 1rem 4rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .cardContent {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .iconWrap {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

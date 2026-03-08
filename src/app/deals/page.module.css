@@ -1,0 +1,483 @@
+.dealsPage {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem 5rem;
+    min-height: 100vh;
+}
+
+/* =========================================
+   Hero
+   ========================================= */
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.heroGlow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heroBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.heroTitle {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 0.85rem;
+    position: relative;
+    z-index: 1;
+}
+
+.heroDesc {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================
+   Sections
+   ========================================= */
+.section {
+    margin-bottom: 4rem;
+}
+
+.sectionHeader {
+    margin-bottom: 2rem;
+}
+
+.sectionBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #10b981;
+    margin-bottom: 0.6rem;
+}
+
+.sectionTitle {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+}
+
+.sectionDesc {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Coupon Grid
+   ========================================= */
+.couponGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1rem;
+}
+
+.couponCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-left: 4px solid #10b981;
+    border-radius: 20px;
+    padding: 1.5rem 1.75rem;
+    transition: all 0.3s ease;
+    gap: 1.5rem;
+}
+
+.couponCard:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.couponLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.couponDiscount {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+
+.couponDiscount svg {
+    color: #10b981;
+}
+
+.couponExpiry {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.06);
+    padding: 0.25rem 0.6rem;
+    border-radius: 99px;
+    width: fit-content;
+}
+
+.couponExpiryNormal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.couponRight {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.couponCodeBox {
+    background: rgba(15, 23, 42, 0.04);
+    border: 1.5px dashed rgba(15, 23, 42, 0.15);
+    border-radius: 10px;
+    padding: 0.5rem 0.85rem;
+}
+
+.couponCode {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.08em;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.copyBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.copyBtn:hover {
+    background: white;
+    border-color: rgba(0, 0, 0, 0.14);
+}
+
+.applyLink {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #10b981;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.applyLink:hover {
+    color: #059669;
+}
+
+/* =========================================
+   No Coupons
+   ========================================= */
+.noCoupons {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    border: 1px dashed rgba(0, 0, 0, 0.06);
+    margin-bottom: 4rem;
+}
+
+.noCouponsIcon {
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+}
+
+.noCoupons h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.35rem;
+}
+
+.noCoupons p {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   Product Grid
+   ========================================= */
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+}
+
+.productCard {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+.productCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
+}
+
+.productImageLink {
+    display: block;
+    text-decoration: none;
+}
+
+.productImage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: rgba(248, 250, 252, 0.6);
+    overflow: hidden;
+}
+
+.productImage img {
+    transition: transform 0.5s ease;
+}
+
+.productCard:hover .productImage img {
+    transform: scale(1.05);
+}
+
+.noImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.productBody {
+    padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.productCat {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #10b981;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.productTitleLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.productName {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    margin-bottom: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.productFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.productPrice {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+
+.addBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+}
+
+.addBtn:hover {
+    background: #10b981;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
+}
+
+.addBtnDone {
+    background: #10b981;
+    transform: scale(1.05);
+}
+
+/* =========================================
+   Action Wrap
+   ========================================= */
+.actionWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.shopAllBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: #0f172a;
+    color: white;
+    border-radius: 99px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.shopAllBtn:hover {
+    background: #10b981;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}
+
+/* =========================================
+   Loading State
+   ========================================= */
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    color: #64748b;
+    gap: 1.25rem;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(0, 0, 0, 0.06);
+    border-top-color: #10b981;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+@media (max-width: 768px) {
+    .dealsPage {
+        padding: 7rem 1rem 4rem;
+    }
+
+    .couponGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .couponCard {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem;
+    }
+
+    .couponRight {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .productGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .productBody {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .productGrid {
+        grid-template-columns: 1fr;
+    }
+}

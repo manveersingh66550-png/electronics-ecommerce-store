@@ -1,0 +1,181 @@
+.container {
+    padding: 1rem 2rem 4rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-muted);
+}
+
+.addBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tablePanel {
+    padding: 0;
+    overflow: hidden;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    gap: 1rem;
+}
+
+.searchBox {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--background);
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(198, 252, 68, 0.2);
+}
+
+.filterSelect {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--background);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 1rem 2rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.table td {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.productCell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.productImgWrapper {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+}
+
+.placeholderImg {
+    width: 100%;
+    height: 100%;
+    background: var(--text-muted);
+    opacity: 0.1;
+    border-radius: 50%;
+}
+
+.productName {
+    font-weight: 500;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.statusActive {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.statusOut {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.actionCell {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.iconBtn {
+    color: var(--text-muted) !important;
+}
+
+.iconBtn:hover {
+    color: var(--fg-color) !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.iconBtnDelete {
+    color: var(--text-muted) !important;
+}
+
+.iconBtnDelete:hover {
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+}
