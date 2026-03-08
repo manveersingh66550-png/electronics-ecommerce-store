@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { GlassPanel } from '@/components/ui/GlassPanel';
-import { LayoutDashboard, Package, Users, ShoppingCart, Settings, LogOut, ArrowLeft } from 'lucide-react';
+import { LayoutDashboard, Package, Users, ShoppingCart, Settings, LogOut, ArrowLeft, MessageSquare } from 'lucide-react';
 import styles from './adminLayout.module.css';
 
 const NAV_ITEMS = [
@@ -13,6 +13,7 @@ const NAV_ITEMS = [
     { href: '/admin/products', label: 'Products', icon: Package },
     { href: '/admin/orders', label: 'Orders', icon: ShoppingCart },
     { href: '/admin/customers', label: 'Customers', icon: Users },
+    { href: '/admin/messages', label: 'Messages', icon: MessageSquare },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
