@@ -260,7 +260,7 @@ export default function AdminProducts() {
                                         <div className={styles.productCell}>
                                             <div className={styles.productImgWrapper}>
                                                 {product.images?.[0] ? (
-                                                    <Image src={product.images[0]} alt={product.name} fill style={{ objectFit: 'contain' }} />
+                                                    <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'contain' }} />
                                                 ) : (
                                                     <div className={styles.placeholderImg}></div>
                                                 )}

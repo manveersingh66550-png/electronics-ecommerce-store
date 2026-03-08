@@ -431,7 +431,7 @@ export default function CheckoutPage() {
                             {items.map(item => (
                                 <div key={item.id} className={styles.itemRow}>
                                     <div className={styles.itemThumb}>
-                                        <Image src={item.image_url || '/hero-headphone.png'} alt={item.name} fill style={{ objectFit: 'contain' }} />
+                                        <Image src={item.image_url || '/hero-headphone.png'} alt={item.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'contain' }} />
                                     </div>
                                     <div className={styles.itemInfo}>
                                         <span className={styles.itemName}>{item.quantity}× {item.name}</span>

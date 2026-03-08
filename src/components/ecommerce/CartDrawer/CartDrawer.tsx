@@ -54,7 +54,7 @@ export const CartDrawer = () => {
                             {items.map((item) => (
                                 <div key={item.id} className={styles.cartItem}>
                                     <div className={styles.itemImage}>
-                                        <Image src={item.image_url} alt={item.name} fill style={{ objectFit: 'contain' }} />
+                                        <Image src={item.image_url} alt={item.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'contain' }} />
                                     </div>
                                     <div className={styles.itemDetails}>
                                         <div className={styles.itemHeader}>

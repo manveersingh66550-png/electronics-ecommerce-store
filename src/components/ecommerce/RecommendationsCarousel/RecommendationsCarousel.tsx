@@ -69,7 +69,7 @@ export function RecommendationsCarousel({ productId, categoryName, title = 'You 
                     <Link key={product.id} href={`/product/${product.id}`} className={styles.card}>
                         <div className={styles.imageWrapper}>
                             {product.images?.[0] ? (
-                                <Image src={product.images[0]} alt={product.name} fill style={{ objectFit: 'contain' }} />
+                                <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'contain' }} />
                             ) : (
                                 <div className={styles.placeholder} />
                             )}

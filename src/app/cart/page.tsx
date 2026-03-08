@@ -175,7 +175,7 @@ function CartContent() {
                     {items.map((item) => (
                         <GlassPanel key={item.id} className={styles.cartItem}>
                             <div className={styles.itemImage}>
-                                <Image src={item.image_url || '/hero-headphone.png'} alt={item.name} fill style={{ objectFit: 'contain' }} />
+                                <Image src={item.image_url || '/hero-headphone.png'} alt={item.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'contain' }} />
                             </div>
                             <div className={styles.itemDetails}>
                                 <h3 className={styles.itemName}>{item.name}</h3>
