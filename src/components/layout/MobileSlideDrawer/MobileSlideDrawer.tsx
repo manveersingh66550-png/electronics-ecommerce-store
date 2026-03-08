@@ -34,7 +34,7 @@ export function MobileSlideDrawer() {
                 <nav className={styles.navLinks}>
                     <Link href="/" onClick={closeMobileMenu}>Home</Link>
                     <Link href="/shop" onClick={closeMobileMenu}>Shop</Link>
-                    <Link href="/categories" onClick={closeMobileMenu}>Categories</Link>
+                    <Link href="/shop" onClick={closeMobileMenu}>Categories</Link>
                     <Link href="/about" onClick={closeMobileMenu}>About Us</Link>
 
                     <div className={styles.divider}></div>
