@@ -78,15 +78,6 @@ export default function HelpPage() {
                                 <span className={styles.cardLink}>Contact Us &rarr;</span>
                             </GlassPanel>
                         </Link>
-
-                        <div className={styles.contactCard}>
-                            <GlassPanel className={styles.cardPanel}>
-                                <div className={styles.cardIcon}><MessageSquare size={24} /></div>
-                                <h3>Live Chat</h3>
-                                <p>Chat with a product specialist in real-time.</p>
-                                <span className={styles.cardLink}>Start Chat &rarr;</span>
-                            </GlassPanel>
-                        </div>
                     </div>
                 </div>
             </div>

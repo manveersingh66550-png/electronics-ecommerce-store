@@ -72,7 +72,7 @@ export default function ContactPage() {
                     <GlassPanel className={styles.infoPanel}>
                         <h3>Get in touch</h3>
                         <p className={styles.infoText}>
-                            Our team is available Monday through Friday, 9am to 6pm EST. We strive to reply to all inquiries within 24 hours.
+                            Our team is available Monday through Friday, 9am to 6pm IST. We strive to reply to all inquiries within 24 hours.
                         </p>
 
                         <div className={styles.contactDetails}>
@@ -80,7 +80,7 @@ export default function ContactPage() {
                                 <MapPin size={20} className={styles.icon} />
                                 <div>
                                     <strong>Headquarters</strong>
-                                    <p>123 Innovation Drive<br />Tech District, NY 10001</p>
+                                    <p>CT group of institutions<br />Jalandhar, Punjab</p>
                                 </div>
                             </div>
 
@@ -88,7 +88,7 @@ export default function ContactPage() {
                                 <Phone size={20} className={styles.icon} />
                                 <div>
                                     <strong>Phone</strong>
-                                    <p>+1 (800) 555-0199</p>
+                                    <p>+91 9780559845</p>
                                 </div>
                             </div>
 
@@ -96,7 +96,7 @@ export default function ContactPage() {
                                 <Mail size={20} className={styles.icon} />
                                 <div>
                                     <strong>Email</strong>
-                                    <p>support@nexcart.store</p>
+                                    <p>manveersingh66550@gmail.com</p>
                                 </div>
                             </div>
                         </div>
