@@ -17,7 +17,46 @@ interface Address {
     country: string;
 }
 
-const EMPTY_FORM = { street: '', city: '', state: '', zip: '', country: 'USA' };
+const INDIA_LOCATIONS: Record<string, string[]> = {
+    "Andaman and Nicobar Islands": ["Port Blair", "Diglipur", "Mayabunder"],
+    "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool"],
+    "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro"],
+    "Assam": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat"],
+    "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur"],
+    "Chandigarh": ["Chandigarh"],
+    "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+    "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Diu", "Silvassa"],
+    "Delhi": ["New Delhi", "North Delhi", "South Delhi", "West Delhi", "East Delhi"],
+    "Goa": ["Panaji", "Margao", "Vasco da Gama"],
+    "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
+    "Haryana": ["Faridabad", "Gurgaon", "Panipat", "Ambala"],
+    "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Solan"],
+    "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla"],
+    "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
+    "Karnataka": ["Bangalore", "Mysore", "Hubli", "Mangalore", "Belgaum"],
+    "Kerala": ["Trivandrum", "Kochi", "Kozhikode", "Thrissur", "Malappuram"],
+    "Ladakh": ["Leh", "Kargil"],
+    "Lakshadweep": ["Kavaratti"],
+    "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain"],
+    "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik"],
+    "Manipur": ["Imphal"],
+    "Meghalaya": ["Shillong"],
+    "Mizoram": ["Aizawl"],
+    "Nagaland": ["Kohima", "Dimapur"],
+    "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Berhampur"],
+    "Puducherry": ["Puducherry", "Karaikal"],
+    "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala"],
+    "Rajasthan": ["Jaipur", "Jodhpur", "Kota", "Bikaner", "Ajmer"],
+    "Sikkim": ["Gangtok"],
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+    "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+    "Tripura": ["Agartala"],
+    "Uttar Pradesh": ["Lucknow", "Kanpur", "Ghaziabad", "Agra", "Meerut", "Varanasi"],
+    "Uttarakhand": ["Dehradun", "Haridwar", "Roorkee", "Haldwani"],
+    "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Asansol", "Siliguri"]
+};
+
+const EMPTY_FORM = { street: '', city: '', state: '', zip: '', country: 'India' };
 
 export default function AddressesPage() {
     const [supabase] = useState(() => createClient());
@@ -104,12 +143,37 @@ export default function AddressesPage() {
                     </div>
                     <div className={styles.formGrid}>
                         <div className={styles.fullWidth}>
-                            <Input placeholder="Street Address" value={form.street} onChange={(e) => setForm(f => ({ ...f, street: e.target.value }))} />
+                            <Input placeholder="Street Address" value={form.street} onChange={(e) => setForm(f => ({ ...f, street: e.target.value }))} required />
                         </div>
-                        <Input placeholder="City" value={form.city} onChange={(e) => setForm(f => ({ ...f, city: e.target.value }))} />
-                        <Input placeholder="State" value={form.state} onChange={(e) => setForm(f => ({ ...f, state: e.target.value }))} />
-                        <Input placeholder="ZIP Code" value={form.zip} onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))} />
-                        <Input placeholder="Country" value={form.country} onChange={(e) => setForm(f => ({ ...f, country: e.target.value }))} />
+                        <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>State</label>
+                            <select
+                                className={styles.select}
+                                value={form.state}
+                                onChange={(e) => setForm(f => ({ ...f, state: e.target.value, city: '' }))}
+                                required
+                            >
+                                <option value="">Select State</option>
+                                {Object.keys(INDIA_LOCATIONS).sort().map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.inputLabel}>City</label>
+                            <select
+                                className={styles.select}
+                                value={form.city}
+                                onChange={(e) => setForm(f => ({ ...f, city: e.target.value }))}
+                                disabled={!form.state}
+                                required
+                            >
+                                <option value="">Select City</option>
+                                {form.state && INDIA_LOCATIONS[form.state].sort().map(c => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                        </div>
+                        <Input placeholder="ZIP Code" value={form.zip} onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))} required />
+                        <div className={styles.fullWidth}>
+                            <Input placeholder="Country" value={form.country} readOnly disabled />
+                        </div>
                     </div>
                     <div className={styles.formActions}>
                         <Button variant="secondary" onClick={handleCancel}>Cancel</Button>

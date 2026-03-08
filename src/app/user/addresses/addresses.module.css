@@ -86,6 +86,44 @@
     gap: 0.75rem;
 }
 
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputLabel {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--panel-bg, rgba(255, 255, 255, 0.7));
+    backdrop-filter: blur(8px);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--fg-color);
+    outline: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.select:focus {
+    border-color: var(--primary-accent, #c6fc44);
+    box-shadow: 0 0 0 2px rgba(198, 252, 68, 0.1);
+}
+
+.select:disabled {
+    background: rgba(0, 0, 0, 0.03);
+    cursor: not-allowed;
+    color: var(--text-muted);
+}
+
 /* Address Grid */
 .addressGrid {
     display: grid;

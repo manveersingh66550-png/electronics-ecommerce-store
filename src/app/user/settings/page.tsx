@@ -6,10 +6,12 @@ import { GlassPanel } from '@/components/ui/GlassPanel';
 import { Input } from '@/components/ui/Input/Input';
 import { Button } from '@/components/ui/Button/Button';
 import { User, Lock, CheckCircle2, Loader2 } from 'lucide-react';
+import { useUserStore } from '@/store/userStore';
 import styles from './settings.module.css';
 
 export default function SettingsPage() {
     const [supabase] = useState(() => createClient());
+    const { user, profile, setUser, setProfile } = useUserStore();
 
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -42,13 +44,30 @@ export default function SettingsPage() {
         setProfileError(null);
         setProfileSuccess(false);
 
-        const { error } = await supabase.auth.updateUser({
+        const { data: authData, error } = await supabase.auth.updateUser({
             data: { full_name: fullName },
         });
 
         if (error) {
             setProfileError(error.message);
         } else {
+            // Update the profiles table
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) {
+                await supabase
+                    .from('profiles')
+                    .update({ full_name: fullName, first_name: fullName.split(' ')[0], last_name: fullName.split(' ').slice(1).join(' ') })
+                    .eq('id', session.user.id);
+            }
+
+            // Sync with global store so UI updates immediately
+            if (authData?.user) {
+                setUser(authData.user);
+            }
+            if (profile) {
+                setProfile({ ...profile, full_name: fullName, first_name: fullName.split(' ')[0] });
+            }
+
             setProfileSuccess(true);
             setTimeout(() => setProfileSuccess(false), 3000);
         }
