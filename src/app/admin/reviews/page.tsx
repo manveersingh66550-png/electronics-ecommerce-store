@@ -31,17 +31,52 @@ export default function AdminReviewsPage() {
         setIsLoading(true);
         setError(null);
         try {
-            const { data, error: fetchError } = await supabase
+            const { data: reviewsData, error: fetchError } = await supabase
                 .from('reviews')
-                .select(`
-                    *,
-                    profiles:user_id(full_name),
-                    products:product_id(name)
-                `)
+                .select('*')
                 .order('created_at', { ascending: false });
 
             if (fetchError) throw fetchError;
-            setReviews(data || []);
+
+            const formattedData = [...reviewsData];
+
+            if (reviewsData.length > 0) {
+                // Fetch profiles
+                const userIds = [...new Set(reviewsData.map((r: any) => r.user_id).filter((id: any) => id))];
+                if (userIds.length > 0) {
+                    const { data: profiles } = await supabase
+                        .from('profiles')
+                        .select('id, full_name')
+                        .in('id', userIds);
+
+                    if (profiles) {
+                        profiles.forEach((p: any) => {
+                            formattedData.filter((r: any) => r.user_id === p.id).forEach((r: any) => {
+                                r.profiles = { full_name: p.full_name };
+                            });
+                        });
+                    }
+                }
+
+                // Fetch products
+                const productIds = [...new Set(reviewsData.map((r: any) => r.product_id).filter((id: any) => id))];
+                if (productIds.length > 0) {
+                    const { data: products } = await supabase
+                        .from('products')
+                        .select('id, name')
+                        .in('id', productIds);
+
+                    if (products) {
+                        products.forEach((p: any) => {
+                            formattedData.filter((r: any) => r.product_id === p.id).forEach((r: any) => {
+                                r.products = { name: p.name };
+                            });
+                        });
+                    }
+                }
+            }
+
+            setReviews(formattedData);
         } catch (err: any) {
             console.error('Error fetching reviews:', err);
             setError(err.message || 'Failed to load reviews');
