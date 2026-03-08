@@ -1,199 +1,126 @@
-.container {
+.productContainer {
     padding: 8rem var(--spacing-container) 4rem;
     max-width: 1400px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
 }
 
-.breadcrumb {
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.breadcrumb strong {
-    color: var(--fg-color);
-    font-weight: 500;
-}
-
-.mainGrid {
+.topSection {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
 }
 
 @media (min-width: 992px) {
-    .mainGrid {
+    .topSection {
         grid-template-columns: 1.2fr 1fr;
         gap: 4rem;
+        align-items: flex-start;
     }
 }
 
 /* Left: Gallery */
-.gallerySection {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.mainImagePanel {
-    padding: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 4/3;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
-}
-
-.mainImageWrapper {
+.galleryArea {
     position: relative;
     width: 100%;
-    height: 100%;
-}
-
-.mainImageWrapper img {
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
-}
-
-.thumbnailsList {
-    display: flex;
-    gap: 1rem;
-}
-
-.thumbPanel {
-    position: relative;
-    flex: 1;
-    aspect-ratio: 1;
-    background: var(--panel-bg);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    overflow: hidden;
-}
-
-.thumbPanel:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.activeThumb {
-    box-shadow: 0 0 0 2px var(--primary-accent), var(--shadow-sm);
 }
 
 /* Right: Info */
-.infoSection {
+.detailsArea {
     display: flex;
     flex-direction: column;
+    padding: 0 1rem;
 }
 
-.infoPanel {
-    padding: 2.5rem;
+@media (min-width: 992px) {
+    .detailsArea {
+        padding: 0;
+        position: sticky;
+        top: 6rem;
+    }
 }
 
-.titleRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
+.header {
+    margin-bottom: 2rem;
+}
+
+.category {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary-accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
 .title {
     font-size: 2.5rem;
     font-weight: 500;
     line-height: 1.1;
-}
-
-.actionBtn {
-    color: var(--text-muted);
-}
-
-.actionBtn:hover {
+    margin-bottom: 1rem;
     color: var(--fg-color);
 }
 
-.ratingRow {
+.rating {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 2rem;
-}
-
-.stars {
-    display: flex;
-    gap: 0.25rem;
-    color: #f59e0b;
-}
-
-.ratingText {
     color: var(--text-muted);
     font-size: 0.9rem;
 }
 
-.priceRow {
+.star {
+    color: #f59e0b;
+    fill: #f59e0b;
+}
+
+.priceBlock {
     margin-bottom: 2rem;
 }
 
 .price {
     font-size: 2.5rem;
     font-weight: 600;
+    color: var(--fg-color);
 }
 
 .description {
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 2.5rem;
+    font-size: 1.05rem;
 }
 
-.variantSection {
-    margin-bottom: 3rem;
-}
-
-.sectionTitle {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.colorOptions {
+.actions {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
-}
-
-.colorDot {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: var(--panel-bg, rgba(255, 255, 255, 0.5));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease;
+    backdrop-filter: blur(12px);
 }
 
-.colorDot:hover {
-    transform: scale(1.1);
-}
-
-.colorDot.active {
-    border-color: var(--fg-color);
-    padding: 2px;
-    background-clip: content-box;
-}
-
-.actionsBox {
+.mainActionBox {
     display: flex;
+    align-items: center;
     gap: 1rem;
-    margin-bottom: 3rem;
     flex-wrap: wrap;
 }
 
 .quantityControl {
     display: flex;
     align-items: center;
-    background: var(--background);
+    background: var(--background, #fff);
     border-radius: var(--radius-pill);
-    padding: 0.5rem;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    padding: 0.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .quantityControl button {
@@ -204,40 +131,90 @@
     justify-content: center;
     border-radius: 50%;
     font-size: 1.25rem;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
-.quantityControl button:hover {
-    background: var(--panel-bg);
+.quantityControl button:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.quantityControl button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .quantityControl span {
     min-width: 40px;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 1.1rem;
 }
 
 .addToCartBtn {
     flex: 1;
-    min-width: 250px;
+    min-width: 200px;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 500;
 }
 
-.trustBadges {
+.featuresList {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    list-style: none;
+    margin: 0;
 }
 
-.badge {
+.featureItem {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     color: var(--text-muted);
     font-size: 0.95rem;
 }
 
-.badgeIcon {
+.featureIcon {
     color: var(--fg-color);
+}
+
+/* Bottom Sections */
+.reviewsSection {
+    margin-top: 2rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--fg-color);
+}
+
+@media (max-width: 640px) {
+    .productContainer {
+        padding: 6rem 0.5rem 2rem;
+        gap: 2.5rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .price {
+        font-size: 2rem;
+    }
+
+    .mainActionBox {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quantityControl {
+        justify-content: center;
+    }
 }
