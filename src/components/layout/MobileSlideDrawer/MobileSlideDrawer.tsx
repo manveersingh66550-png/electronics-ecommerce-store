@@ -24,7 +24,7 @@ export function MobileSlideDrawer() {
             <GlassPanel className={styles.drawer} onClick={(e: React.MouseEvent) => e.stopPropagation()}>
                 <div className={styles.header}>
                     <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
-                        NexCart.
+                        NexCart
                     </Link>
                     <button className={styles.closeBtn} onClick={closeMobileMenu} aria-label="Close menu">
                         <X size={24} />
