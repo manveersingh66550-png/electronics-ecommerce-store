@@ -7,6 +7,7 @@ import { GlassPanel } from '@/components/ui/GlassPanel';
 import { Button } from '@/components/ui/Button/Button';
 import { Input } from '@/components/ui/Input/Input';
 import { Plus, Search, Edit2, Trash2, X, Loader2 } from 'lucide-react';
+import { LiquidGlass } from '@/components/home/LiquidGlass/LiquidGlass';
 import styles from './products.module.css';
 
 interface Product {
@@ -43,6 +44,7 @@ export default function AdminProducts() {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [form, setForm] = useState(EMPTY_FORM);
     const [saving, setSaving] = useState(false);
+    const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
     const fetchProducts = async () => {
         let query = supabase.from('products').select('*, categories(name)').order('created_at', { ascending: false });
@@ -136,6 +138,7 @@ export default function AdminProducts() {
     };
 
     const handleDelete = async (id: string) => {
+        setDeleteConfirmId(null);
         await supabase.from('products').delete().eq('id', id);
         fetchProducts();
     };
@@ -213,6 +216,45 @@ export default function AdminProducts() {
                 </GlassPanel>
             )}
 
+            {/* Delete Confirmation Modal */}
+            {deleteConfirmId && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                    background: 'rgba(255, 255, 255, 0.4)', backdropFilter: 'blur(12px)',
+                    zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
+                }}>
+                    <div style={{ width: '100%', maxWidth: '400px' }}>
+                        <LiquidGlass config={{ radius: 32, frost: 0.15, blur: 25, lightness: 98, alpha: 0.95, border: 0.05 }}>
+                            <div style={{ padding: '2.5rem', textAlign: 'center' }}>
+                                <div style={{
+                                    width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(255, 59, 48, 0.08)',
+                                    color: '#ff3b30', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    margin: '0 auto 1.5rem auto'
+                                }}>
+                                    <Trash2 size={32} />
+                                </div>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>Are you sure?</h3>
+                                <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', lineHeight: 1.6 }}>
+                                    This action cannot be undone. This product will be permanently removed from your catalog.
+                                </p>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                    <Button variant="secondary" onClick={() => setDeleteConfirmId(null)} style={{ border: '1px solid rgba(0,0,0,0.05)' }}>
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        variant="primary"
+                                        style={{ background: '#ff3b30', borderColor: '#ff3b30', color: 'white' }}
+                                        onClick={() => handleDelete(deleteConfirmId)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
+                            </div>
+                        </LiquidGlass>
+                    </div>
+                </div>
+            )}
+
             <GlassPanel className={styles.tablePanel}>
                 <div className={styles.toolbar}>
                     <div className={styles.searchBox}>
@@ -281,7 +323,7 @@ export default function AdminProducts() {
                                             <Button variant="icon" size="sm" className={styles.iconBtn} onClick={() => handleEdit(product)}>
                                                 <Edit2 size={16} />
                                             </Button>
-                                            <Button variant="icon" size="sm" className={styles.iconBtnDelete} onClick={() => handleDelete(product.id)}>
+                                            <Button variant="icon" size="sm" className={styles.iconBtnDelete} onClick={() => setDeleteConfirmId(product.id)}>
                                                 <Trash2 size={16} />
                                             </Button>
                                         </div>

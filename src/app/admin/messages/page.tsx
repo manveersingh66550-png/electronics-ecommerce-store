@@ -102,7 +102,7 @@ export default function AdminMessagesPage() {
                 <div className={styles.errorState}>
                     <h2>Something went wrong</h2>
                     <p>{error}</p>
-                    <Button variant="outline" onClick={fetchMessages}>Try Again</Button>
+                    <Button variant="secondary" onClick={fetchMessages}>Try Again</Button>
                 </div>
             </div>
         );
@@ -118,8 +118,8 @@ export default function AdminMessagesPage() {
                     </p>
                 </div>
                 <div className={styles.headerActions}>
-                    <Button variant="outline" onClick={fetchMessages} icon={<RefreshCw size={16} />}>
-                        Refresh
+                    <Button variant="secondary" onClick={fetchMessages}>
+                        <RefreshCw size={16} /> Refresh
                     </Button>
                 </div>
             </div>
@@ -151,8 +151,8 @@ export default function AdminMessagesPage() {
                                             size="sm"
                                             onClick={() => toggleStatus(msg.id, msg.status)}
                                             style={{ color: msg.status === 'unread' ? 'var(--primary-color)' : 'var(--text-secondary)' }}
-                                            icon={msg.status === 'unread' ? <Circle size={16} /> : <CheckCircle2 size={16} />}
                                         >
+                                            {msg.status === 'unread' ? <Circle size={16} /> : <CheckCircle2 size={16} />}
                                             {msg.status === 'unread' ? 'Mark Read' : 'Mark Unread'}
                                         </Button>
                                     </div>

@@ -155,10 +155,13 @@ function TrackOrderContent() {
                                     {orderItems.map(item => (
                                         <div key={item.id} className={styles.orderItem}>
                                             <span className={styles.orderItemName}>
-                                                {item.quantity}× {item.products?.name || 'Product'}
+                                                {item.quantity}× {(() => {
+                                                    const p = Array.isArray(item.products) ? item.products[0] : item.products;
+                                                    return p?.name || 'Product';
+                                                })()}
                                             </span>
                                             <span className={styles.orderItemPrice}>
-                                                ${(Number(item.price) * item.quantity).toFixed(2)}
+                                                ₹{(Number(item.price) * item.quantity).toFixed(2)}
                                             </span>
                                         </div>
                                     ))}

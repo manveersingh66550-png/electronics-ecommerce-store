@@ -31,7 +31,7 @@ export default function AdminOrders() {
 
         if (search) {
             const s = search.toLowerCase();
-            filtered = filtered.filter(o => {
+            filtered = filtered.filter((o: any) => {
                 const profile = Array.isArray(o.profiles) ? o.profiles[0] : o.profiles;
                 return (
                     o.id.toLowerCase().includes(s) ||

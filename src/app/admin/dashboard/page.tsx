@@ -25,7 +25,7 @@ export default function AdminDashboard() {
 
             if (orders) {
                 setOrderCount(orders.length);
-                setRevenue(orders.reduce((sum, o) => sum + Number(o.total_price || 0), 0));
+                setRevenue(orders.reduce((sum: number, o: any) => sum + Number(o.total_price || 0), 0));
             }
 
             // Customer count

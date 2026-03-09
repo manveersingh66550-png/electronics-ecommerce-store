@@ -89,6 +89,7 @@ export default function Home() {
               src="/hero-phones.png"
               alt="Titanium Flagship Smartphone Lineup"
               fill
+              sizes="100vw"
               className={styles.mainHeroImage}
               priority
             />

@@ -59,6 +59,7 @@ export const ProductGallery = ({ media }: ProductGalleryProps) => {
                             src={activeMedia.url}
                             alt={activeMedia.alt || 'Product Image'}
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             style={{ objectFit: 'contain' }}
                             priority
                         />
@@ -102,6 +103,7 @@ export const ProductGallery = ({ media }: ProductGalleryProps) => {
                                         src={item.url}
                                         alt={item.alt || `Thumbnail ${index + 1}`}
                                         fill
+                                        sizes="100px"
                                         style={{ objectFit: 'contain', padding: '0.25rem' }}
                                     />
                                 )}

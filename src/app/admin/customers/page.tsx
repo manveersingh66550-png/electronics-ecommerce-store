@@ -27,11 +27,11 @@ export default function AdminCustomers() {
                 .select('user_id');
 
             const orderCounts: Record<string, number> = {};
-            (orders || []).forEach(o => {
+            (orders || []).forEach((o: any) => {
                 orderCounts[o.user_id] = (orderCounts[o.user_id] || 0) + 1;
             });
 
-            const enriched = profiles.map(p => ({
+            const enriched = profiles.map((p: any) => ({
                 ...p,
                 orderCount: orderCounts[p.id] || 0,
             }));

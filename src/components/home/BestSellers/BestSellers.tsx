@@ -27,8 +27,9 @@ export const BestSellers = () => {
     const addItem = useCartStore((state) => state.addItem);
 
     useEffect(() => {
+        const supabase = createClient();
+
         async function fetchBestSellers() {
-            const supabase = createClient();
             const { data, error } = await supabase
                 .from('products')
                 .select(`
@@ -48,7 +49,30 @@ export const BestSellers = () => {
             }
             setLoading(false);
         }
+
         fetchBestSellers();
+
+        // Real-time subscription for sales_count updates
+        const channel = supabase
+            .channel('best-sellers-realtime')
+            .on(
+                'postgres_changes',
+                {
+                    event: 'UPDATE',
+                    schema: 'public',
+                    table: 'products',
+                },
+                (payload: any) => {
+                    // Re-fetch when any product update occurs (simplified trigger)
+                    // In a production app, we might check if the update affects sales_count
+                    fetchBestSellers();
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     const handleAddToCart = (e: React.MouseEvent, product: Product) => {
@@ -100,6 +124,7 @@ export const BestSellers = () => {
                                             src={product.images[0] || '/placeholder.png'}
                                             alt={product.name}
                                             fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                                             style={{ objectFit: 'contain' }}
                                             className={styles.productImage}
                                         />
