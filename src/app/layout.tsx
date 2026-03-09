@@ -59,8 +59,8 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <link rel="preconnect" href="https://yalzfnxgswjsftjbxpce.supabase.co" />
-        <link rel="dns-prefetch" href="https://yalzfnxgswjsftjbxpce.supabase.co" />
+        <link rel="preconnect" href="https://gvxczxrqukweixncybri.supabase.co" />
+        <link rel="dns-prefetch" href="https://gvxczxrqukweixncybri.supabase.co" />
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={inter.className} suppressHydrationWarning>
