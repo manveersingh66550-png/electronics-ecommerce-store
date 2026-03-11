@@ -46,3 +46,8 @@ next-env.d.ts
 venv/
 ENV/
 env/
+
+# documentation build artifacts
+.doc-images/
+DOCUMENTATION.pdf
+DOCUMENTATION_rendered.md
