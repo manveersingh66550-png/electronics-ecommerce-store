@@ -102,8 +102,12 @@ export default function Home() {
       <section className={`${styles.section} ${styles.categoriesSection}`}>
         <AnimatedSection delay={0.1}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Explore by Category</h2>
-            <p className={styles.heroDesc} style={{ fontSize: '1.25rem' }}>Find the perfect tech gear tailored to your lifestyle and needs.</p>
+            <div className={styles.sectionBadge}>
+              <LayoutGrid size={16} className={styles.sectionBadgeIcon} />
+              <span>Shop by Category</span>
+            </div>
+            <h2 className={styles.sectionTitle}>Explore Categories</h2>
+            <p className={styles.sectionDesc}>Find the perfect tech gear tailored to your lifestyle and needs.</p>
           </div>
           <div className={styles.categoriesWrapper}>
             {[

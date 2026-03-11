@@ -96,6 +96,8 @@ export const LiquidGlass = ({ children, className = '', config: customConfig }: 
     const uniqueFilterId = useId();
     // Replacing colons because React useId generates strings like ":r1:" which are invalid for CSS selectors
     const filterId = `liquid-glass-filter-${uniqueFilterId.replace(/:/g, '')}`;
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => { setMounted(true); }, []);
 
     const glassMorphismStyle: React.CSSProperties = {
         width: "100%",
@@ -124,7 +126,8 @@ export const LiquidGlass = ({ children, className = '', config: customConfig }: 
 
     return (
         <div ref={containerRef} className={className} style={{ position: "relative" }}>
-            {/* The SVG Filter Definition */}
+            {/* The SVG Filter Definition — rendered only after mount to avoid hydration mismatch */}
+            {mounted && (
             <svg
                 className="filter"
                 style={{ width: 0, height: 0, pointerEvents: "none", position: "absolute", inset: 0 }}
@@ -145,6 +148,7 @@ export const LiquidGlass = ({ children, className = '', config: customConfig }: 
                     </filter>
                 </defs>
             </svg>
+            )}
 
             {/* The glass layer */}
             <div style={glassMorphismStyle}></div>

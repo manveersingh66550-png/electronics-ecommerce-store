@@ -44,9 +44,13 @@
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 800;
     letter-spacing: -0.04em;
-    color: #0f172a;
     line-height: 1.1;
     margin: 0;
+    background: linear-gradient(135deg, #020617 0%, #1e293b 50%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 .sectionDesc {
@@ -249,12 +253,42 @@
 }
 
 @media (max-width: 768px) {
-    .productGrid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-}
-@media (max-width: 768px) {
     .bestSellersSection {
-        padding: 6rem 2.5rem !important;
+        padding: 3rem 1.25rem;
+    }
+
+    .productGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .productImageWrap {
+        padding: 1rem;
+    }
+
+    .productDetails {
+        padding: 1rem 1rem 1.25rem;
+    }
+
+    .productName {
+        font-size: 1rem;
+        margin: 0 0 0.75rem 0;
+    }
+
+    .productPrice {
+        font-size: 1.15rem;
+    }
+
+    .addBtn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .rankBadge {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        top: 0.75rem;
+        left: 0.75rem;
     }
 }
