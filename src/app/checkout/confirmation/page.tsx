@@ -106,7 +106,11 @@ function ConfirmationContent() {
                     <Package size={20} />
                     <div>
                         <strong>Estimated Delivery</strong>
-                        <p>Your order will arrive in 5–7 business days.</p>
+                        <p>
+                            {order.shipping_method === 'express' ? 'Your order will arrive in 2–3 business days.' :
+                             order.shipping_method === 'overnight' ? 'Your order will arrive in 1 business day.' :
+                             'Your order will arrive in 5–7 business days.'}
+                        </p>
                     </div>
                 </div>
             </GlassPanel>

@@ -131,6 +131,64 @@
     grid-column: 1 / -1;
 }
 
+/* Saved Addresses UI */
+.sectionHeaderWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.useSavedBtn {
+    background: transparent;
+    border: 1px solid var(--primary-accent, #c6fc44);
+    color: var(--primary-accent, #c6fc44);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm, 8px);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.useSavedBtn:hover {
+    background: rgba(198, 252, 68, 0.1);
+}
+
+.savedAddressesList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.savedAddressCard {
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md, 12px);
+    cursor: pointer;
+    background: var(--background, #fff);
+    transition: all 0.2s ease;
+}
+
+.savedAddressCard:hover {
+    border-color: var(--primary-accent, #c6fc44);
+    box-shadow: var(--shadow-sm);
+    background: rgba(198, 252, 68, 0.02);
+}
+
+.addressLine {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    color: var(--fg-color);
+}
+
+.addressLineSub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
 /* Shipping Options */
 .shippingOptions {
     display: flex;

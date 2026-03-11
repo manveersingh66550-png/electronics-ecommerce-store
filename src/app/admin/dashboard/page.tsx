@@ -12,6 +12,7 @@ export default function AdminDashboard() {
 
     const [revenue, setRevenue] = useState(0);
     const [orderCount, setOrderCount] = useState(0);
+    const [validOrderCount, setValidOrderCount] = useState(0);
     const [customerCount, setCustomerCount] = useState(0);
     const [recentOrders, setRecentOrders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -25,7 +26,9 @@ export default function AdminDashboard() {
 
             if (orders) {
                 setOrderCount(orders.length);
-                setRevenue(orders.reduce((sum: number, o: any) => sum + Number(o.total_price || 0), 0));
+                const validOrders = orders.filter((o: any) => o.status !== 'cancelled');
+                setValidOrderCount(validOrders.length);
+                setRevenue(validOrders.reduce((sum: number, o: any) => sum + Number(o.total_price || 0), 0));
             }
 
             // Customer count
@@ -144,7 +147,7 @@ export default function AdminDashboard() {
                             <TrendingUp size={20} />
                             <div>
                                 <span className={styles.quickStatValue}>
-                                    ${orderCount > 0 ? (revenue / orderCount).toFixed(0) : '0'}
+                                    ₹{validOrderCount > 0 ? (revenue / validOrderCount).toFixed(0) : '0'}
                                 </span>
                                 <span className={styles.quickStatLabel}>Avg. Order Value</span>
                             </div>

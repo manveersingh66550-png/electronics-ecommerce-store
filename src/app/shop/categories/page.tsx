@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { AnimatedSection } from '@/components/home/AnimatedSection/AnimatedSection';
-import { LiquidGlass } from '@/components/home/LiquidGlass/LiquidGlass';
 import {
     Smartphone, Laptop, Headphones, Watch, Monitor, Gamepad2,
     Camera, Speaker, Keyboard, Mouse, Tablet, Cable, LayoutGrid
@@ -88,7 +87,7 @@ export default function CategoriesPage() {
                         return (
                             <AnimatedSection key={cat.id} direction="up" delay={0.1 + idx * 0.06}>
                                 <Link href={`/shop?category=${cat.id}`} className={styles.cardLink}>
-                                    <LiquidGlass className={styles.card} config={{ radius: 28, frost: 0.12, blur: 14 }}>
+                                    <div className={styles.card}>
                                         <div className={styles.cardContent}>
                                             <div className={styles.iconWrap}>
                                                 <Icon size={32} strokeWidth={1.5} className={styles.icon} />
@@ -103,7 +102,7 @@ export default function CategoriesPage() {
                                                 </svg>
                                             </div>
                                         </div>
-                                    </LiquidGlass>
+                                    </div>
                                 </Link>
                             </AnimatedSection>
                         );

@@ -2,12 +2,13 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .variantGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1.15rem;
 }
 
 .groupHeader {
@@ -36,30 +37,33 @@
 }
 
 .optionBtn {
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 0.6rem 1.25rem;
     font-size: 0.95rem;
+    font-weight: 500;
     color: var(--text-muted);
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    min-width: 3rem;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    min-width: 4rem;
     text-align: center;
 }
 
-.optionBtn:hover {
+.optionBtn:hover:not(.disabled) {
     color: var(--fg-color);
-    border-color: rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.15);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transform: translateY(-1px);
 }
 
 .optionBtn.active {
-    background: white;
-    border-color: var(--primary-accent);
-    color: var(--primary-accent);
+    background: var(--fg-color);
+    border-color: var(--fg-color);
+    color: var(--bg-color); /* Soft off-white to contrast the black background */
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(144, 238, 144, 0.15);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 .optionBtn.disabled {
@@ -71,13 +75,13 @@
 
 /* Color Options specific styles */
 .colorOption {
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    padding: 0;
+    padding: 3px; /* Creates space for the outer ring */
     position: relative;
     border: 2px solid transparent;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     background: none;
 }
@@ -87,11 +91,12 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05); /* very soft inner border */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* interior depth */
 }
 
 .colorOption.active {
-    border-color: var(--primary-accent);
+    border-color: var(--fg-color);
     transform: scale(1.1);
 }
 

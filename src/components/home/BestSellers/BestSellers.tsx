@@ -7,7 +7,6 @@ import { Plus, ArrowRight, TrendingUp, Check } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useCartStore } from '@/store/cartStore';
 import { AnimatedSection } from '@/components/home/AnimatedSection/AnimatedSection';
-import { LiquidGlass } from '@/components/home/LiquidGlass/LiquidGlass';
 import styles from './BestSellers.module.css';
 
 interface Product {
@@ -63,8 +62,14 @@ export const BestSellers = () => {
                     table: 'products',
                 },
                 (payload: any) => {
-                    // Re-fetch when any product update occurs (simplified trigger)
-                    // In a production app, we might check if the update affects sales_count
+                    // Only re-fetch if the record changed in a way that might affect best sellers
+                    // (e.g. sales_count changed, or a product was renamed/priced differently)
+                    if (payload.old && payload.new && 
+                        payload.old.sales_count === payload.new.sales_count &&
+                        payload.old.name === payload.new.name &&
+                        payload.old.price === payload.new.price) {
+                        return;
+                    }
                     fetchBestSellers();
                 }
             )
@@ -118,7 +123,7 @@ export const BestSellers = () => {
                     {products.map((product, idx) => (
                         <AnimatedSection direction="up" delay={0.2 + idx * 0.1} key={product.id}>
                             <Link href={`/product/${product.id}`} className={styles.productLink}>
-                                <LiquidGlass className={styles.productCard} config={{ radius: 32, frost: 0.15, blur: 20 }}>
+                                <div className={styles.productCard}>
                                     <div className={styles.productImageWrap}>
                                         <Image
                                             src={product.images[0] || '/placeholder.png'}
@@ -151,7 +156,7 @@ export const BestSellers = () => {
                                             </button>
                                         </div>
                                     </div>
-                                </LiquidGlass>
+                                </div>
                             </Link>
                         </AnimatedSection>
                     ))}

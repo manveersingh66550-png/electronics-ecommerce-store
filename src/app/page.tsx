@@ -7,7 +7,6 @@ import { Smartphone, Laptop, HeadphonesIcon, Gamepad2, Watch, Plus, ArrowRight, 
 import { createClient } from '@/lib/supabase/client';
 import { useCartStore } from '@/store/cartStore';
 import { AnimatedSection } from '@/components/home/AnimatedSection/AnimatedSection';
-import { LiquidGlass } from '@/components/home/LiquidGlass/LiquidGlass';
 import { BestSellers } from '@/components/home/BestSellers/BestSellers';
 import { BrandStrip } from '@/components/home/BrandStrip/BrandStrip';
 import { WhyChooseUs } from '@/components/home/WhyChooseUs/WhyChooseUs';
@@ -15,7 +14,7 @@ import styles from './page.module.css';
 
 
 export default function Home() {
-  const [activeCoupon, setActiveCoupon] = useState<{ code: string; discount_type: string; value: number; expiry_date: string | null } | null>(null);
+  const [activeCoupon, setActiveCoupon] = useState<{ code: string; discount_type: string; value: number; expiry_date: string | null; min_cart_value: number } | null>(null);
   const [spotlightProduct, setSpotlightProduct] = useState<any>(null);
   const addItem = useCartStore((state) => state.addItem);
   const [spotlightAdded, setSpotlightAdded] = useState(false);
@@ -25,7 +24,7 @@ export default function Home() {
       const supabase = createClient();
       const { data, error } = await supabase
         .from('coupons')
-        .select('code, discount_type, value, expiry_date')
+        .select('code, discount_type, value, expiry_date, min_cart_value')
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
@@ -89,7 +88,7 @@ export default function Home() {
               src="/hero-phones.png"
               alt="Titanium Flagship Smartphone Lineup"
               fill
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
               className={styles.mainHeroImage}
               priority
             />
@@ -114,15 +113,15 @@ export default function Home() {
               { name: 'Watch', icon: Watch, link: '/shop/category/wearables' },
               { name: 'Explore More', icon: LayoutGrid, link: '/shop/categories' },
             ].map((cat, idx) => (
-              <Link key={idx} href={cat.link} style={{ textDecoration: 'none' }}>
-                <LiquidGlass className={styles.categoryCard} config={{ radius: 40, border: 0.02, frost: 0.15, blur: 20 }}>
+              <Link key={idx} href={cat.link} style={{ textDecoration: 'none' }} className={styles.categoryCardWrapper}>
+                <div className={styles.categoryCard}>
                   <div className={styles.categoryCardContent}>
                     <div className={styles.categoryIconDark}>
                       <cat.icon size={28} color="white" strokeWidth={1.5} />
                     </div>
                     <span className={styles.categoryName}>{cat.name}</span>
                   </div>
-                </LiquidGlass>
+                </div>
               </Link>
             ))}
           </div>
@@ -133,7 +132,7 @@ export default function Home() {
       {activeCoupon && (
         <section className={`${styles.section} ${styles.dealsSection}`}>
           <AnimatedSection delay={0.1}>
-            <LiquidGlass className={styles.dealsCard} config={{ radius: 32, frost: 0.15, blur: 25, border: 0.05 }}>
+            <div className={styles.dealsCard}>
 
               {/* Abstract decorative backgrounds inside the glass */}
               <div className={styles.dealsBlobTop}></div>
@@ -151,7 +150,9 @@ export default function Home() {
                   <p className={styles.dealsDesc}>
                     Upgrade your setup today. Apply this exclusive voucher at checkout or grab the deal now to auto-sync it to your cart.
                   </p>
-                  <p className={styles.dealsMinOrder}>*Applicable on orders above ₹10,000</p>
+                  {activeCoupon.min_cart_value > 0 ? (
+                    <p className={styles.dealsMinOrder}>*Applicable on orders above ₹{activeCoupon.min_cart_value.toLocaleString()}</p>
+                  ) : null}
 
                   <div className={styles.dealsCodeBox}>
                     <TicketPercent size={24} className={styles.dealsIcon} />
@@ -167,17 +168,17 @@ export default function Home() {
                 </div>
 
                 <div className={styles.dealsGraphic}>
-                  <LiquidGlass className={styles.dealsGraphicInner} config={{ radius: 24, frost: 0.1, blur: 10 }}>
+                  <div className={styles.dealsGraphicInner}>
                     <div className={styles.dealsGraphicContent}>
                       <Zap size={64} className={styles.dealsZapIcon} strokeWidth={1} />
                       <h3 className={styles.dealsGraphicTitle}>Flash Sale</h3>
                       <p className={styles.dealsGraphicSub}>Don't miss out on these exclusive savings.</p>
                     </div>
-                  </LiquidGlass>
+                  </div>
                 </div>
               </div>
 
-            </LiquidGlass>
+            </div>
           </AnimatedSection>
         </section>
       )}
@@ -241,13 +242,12 @@ export default function Home() {
           <AnimatedSection direction="right" delay={0.4} className={styles.spotlightImageWrap}>
             <Image
               src="/Samsung-S26ultra-nobg.png"
-              alt="Samsung Galaxy S22 Ultra"
+              alt="Samsung Galaxy S26 Ultra"
               width={800}
               height={1000}
               className={styles.spotlightImage}
-              quality={100}
-              priority
-              unoptimized
+              quality={85}
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </AnimatedSection>
         </div>

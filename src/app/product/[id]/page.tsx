@@ -78,32 +78,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         }));
     }
 
-    // 3. Fetch Variants
+    // 3. Fetch Full Variant Rows
     const { data: variantData } = await supabase
         .from('product_variants')
         .select('*')
         .eq('product_id', product.id);
 
-    // Group variants by their "name" (e.g., Color, Size)
-    const variantTypesMap: Record<string, any> = {};
+    const variants = variantData || [];
 
-    variantData?.forEach((v: any) => {
-        if (!variantTypesMap[v.name]) {
-            variantTypesMap[v.name] = {
-                id: v.name, // using name as type id for simplicity
-                name: v.name,
-                options: []
-            };
-        }
-        variantTypesMap[v.name].options.push({
-            id: v.id,
-            name: v.name.toLowerCase() === 'color' ? v.sku : v.sku,
-            value: v.name.toLowerCase() === 'color' ? v.sku : undefined,
-            inStock: v.stock > 0
-        });
-    });
 
-    const variantTypes = Object.values(variantTypesMap);
 
     // 4. Fetch Reviews
     const { data: reviewsData } = await supabase
@@ -166,7 +149,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                     stock: product.stock
                 }}
                 media={mediaList}
-                variantTypes={variantTypes}
+                variants={variants}
                 reviews={reviews}
                 averageRating={averageRating}
                 totalReviews={reviews.length || 0}

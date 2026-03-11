@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
-import { MobileSlideDrawer } from '@/components/layout/MobileSlideDrawer/MobileSlideDrawer';
 import { Footer } from '@/components/layout/Footer/Footer';
-import { CartDrawer } from '@/components/ecommerce/CartDrawer/CartDrawer';
 import { AuthProvider } from '@/components/providers/AuthProvider';
+import { ClientSideUI } from '@/components/layout/ClientSideUI';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -49,8 +49,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { ToastContainer } from '@/components/ui/ToastContainer/ToastContainer';
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,9 +66,7 @@ export default function RootLayout({
         <div className="globalNoiseOverlay" aria-hidden="true" />
         <AuthProvider>
           <Navbar />
-          <MobileSlideDrawer />
-          <CartDrawer />
-          <ToastContainer />
+          <ClientSideUI />
           <main className="main-content">
             {children}
           </main>

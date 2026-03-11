@@ -13,13 +13,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const clearUser = useUserStore(state => state.clearUser);
 
     useEffect(() => {
-        authProviderMounts++;
-        console.log(`[AuthProvider] Mount #${authProviderMounts}`);
         const supabase = createClient();
 
         // 1. Get the initial session
         const initSession = async () => {
-            console.log(`[AuthProvider] initSession start (Mount #${authProviderMounts})`);
             try {
                 const {
                     data: { user },
@@ -33,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         .select("*")
                         .eq("id", user.id)
                         .maybeSingle();
-                    console.log('[AuthProvider] profile fetch result', { error });
+                    
                     if (error) {
                         console.error('Profile fetch error:', error);
                     }
@@ -45,7 +42,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 console.error('Auth initialization error:', error);
                 clearUser();
             } finally {
-                console.log('[AuthProvider] initSession finally, setting loading false');
                 setLoading(false);
             }
         };

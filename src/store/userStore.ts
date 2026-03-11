@@ -17,19 +17,15 @@ export const useUserStore = create<UserState>((set) => ({
     isLoading: true,
 
     setUser: (user) => {
-        console.trace('[userStore] setUser called', !!user);
         set({ user });
     },
     setProfile: (profile) => {
-        console.log('[userStore] setProfile called', !!profile);
         set({ profile });
     },
     setLoading: (isLoading) => {
-        console.log('[userStore] setLoading called', isLoading);
         set({ isLoading });
     },
     clearUser: () => {
-        console.log('[userStore] clearUser called');
         set({ user: null, profile: null });
     }
 }));

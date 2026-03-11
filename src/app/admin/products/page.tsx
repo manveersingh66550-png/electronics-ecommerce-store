@@ -21,6 +21,17 @@ interface Product {
     categories?: { name: string } | null;
 }
 
+interface VariantForm {
+    id?: string;
+    sku: string;
+    price: string;
+    stock: string;
+    color_name: string;
+    color_value: string;
+    attribute_name: string;
+    attribute_value: string;
+}
+
 const EMPTY_FORM = {
     name: '',
     price: '',
@@ -28,7 +39,9 @@ const EMPTY_FORM = {
     description: '',
     category_id: '',
     imageFile: null as File | null,
-    existingImage: ''
+    existingImage: '',
+    hasVariants: false,
+    variants: [] as VariantForm[]
 };
 
 export default function AdminProducts() {
@@ -103,12 +116,39 @@ export default function AdminProducts() {
                 images: imageUrl ? [imageUrl] : [],
             };
 
+            let productId = editingId;
             if (editingId) {
                 const { error } = await supabase.from('products').update(payload).eq('id', editingId);
                 if (error) throw error;
             } else {
-                const { error } = await supabase.from('products').insert(payload);
+                const { data: newProd, error } = await supabase.from('products').insert(payload).select().single();
                 if (error) throw error;
+                productId = newProd.id;
+            }
+
+            // Save variants if enabled
+            if (form.hasVariants && form.variants.length > 0) {
+                const variantPayloads = form.variants.map(v => ({
+                    ...(v.id ? { id: v.id } : {}),
+                    product_id: productId,
+                    name: `${form.name} - ${v.color_name || ''} ${v.attribute_value || ''}`.trim(),
+                    sku: v.sku || `SKU-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+                    price: parseFloat(v.price) || payload.price,
+                    stock: parseInt(v.stock) || 0,
+                    color_name: v.color_name || null,
+                    color_value: v.color_value || null,
+                    attribute_name: v.attribute_name || null,
+                    attribute_value: v.attribute_value || null,
+                }));
+
+                const { error: variantError } = await supabase
+                    .from('product_variants')
+                    .upsert(variantPayloads, { onConflict: 'id' });
+                
+                if (variantError) throw variantError;
+            } else if (!form.hasVariants && productId) {
+                // If variants disabled, delete existing ones just in case
+                await supabase.from('product_variants').delete().eq('product_id', productId);
             }
 
             setShowForm(false);
@@ -123,7 +163,15 @@ export default function AdminProducts() {
         }
     };
 
-    const handleEdit = (p: Product) => {
+    const handleEdit = async (p: Product) => {
+        // Fetch variants if they exist
+        const { data: variantsData } = await supabase
+            .from('product_variants')
+            .select('*')
+            .eq('product_id', p.id);
+
+        const hasVariants = variantsData && variantsData.length > 0;
+        
         setForm({
             name: p.name,
             price: String(p.price),
@@ -132,6 +180,17 @@ export default function AdminProducts() {
             category_id: p.category_id || '',
             imageFile: null,
             existingImage: p.images?.[0] || '',
+            hasVariants: hasVariants || false,
+            variants: hasVariants ? variantsData.map(v => ({
+                id: v.id,
+                sku: v.sku || '',
+                price: String(v.price),
+                stock: String(v.stock),
+                color_name: v.color_name || '',
+                color_value: v.color_value || '',
+                attribute_name: v.attribute_name || '',
+                attribute_value: v.attribute_value || ''
+            })) : []
         });
         setEditingId(p.id);
         setShowForm(true);
@@ -204,6 +263,44 @@ export default function AdminProducts() {
 
                             <div style={{ gridColumn: '1 / -1' }}>
                                 <Input placeholder="Description" value={form.description} onChange={(e) => setForm(f => ({ ...f, description: e.target.value }))} />
+                            </div>
+                            
+                            {/* Variants Toggle */}
+                            <div style={{ gridColumn: '1 / -1', marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.02)', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 500 }}>
+                                    <input 
+                                        type="checkbox" 
+                                        checked={form.hasVariants} 
+                                        onChange={(e) => setForm(f => ({ ...f, hasVariants: e.target.checked, variants: e.target.checked && f.variants.length === 0 ? [{ sku: '', price: f.price, stock: f.stock, color_name: '', color_value: '', attribute_name: '', attribute_value: '' }] : f.variants }))} 
+                                    />
+                                    Product has variations (Colors, Storage, Sizes)
+                                </label>
+                                
+                                {form.hasVariants && (
+                                    <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                        {form.variants.map((v, i) => (
+                                            <div key={i} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', padding: '1rem', background: 'white', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.08)' }}>
+                                                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'space-between' }}>
+                                                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>Variant {i + 1} {v.id && '(Saved)'}</span>
+                                                    <button onClick={() => setForm(f => ({ ...f, variants: f.variants.filter((_, idx) => idx !== i) }))} style={{ background: 'none', border: 'none', color: '#ff3b30', cursor: 'pointer', fontSize: '0.85rem' }}>Remove</button>
+                                                </div>
+                                                <Input placeholder="SKU" value={v.sku} onChange={(e) => { const nv = [...form.variants]; nv[i].sku = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Price Override" type="number" value={v.price} onChange={(e) => { const nv = [...form.variants]; nv[i].price = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Stock" type="number" value={v.stock} onChange={(e) => { const nv = [...form.variants]; nv[i].stock = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Attribute Name (e.g. Storage)" value={v.attribute_name} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute_name = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Attribute Value (e.g. 256GB)" value={v.attribute_value} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute_value = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Color Name (e.g. Space Gray)" value={v.color_name} onChange={(e) => { const nv = [...form.variants]; nv[i].color_name = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                    <Input placeholder="Hex Code (e.g. #000000)" value={v.color_value} onChange={(e) => { const nv = [...form.variants]; nv[i].color_value = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                    {v.color_value && <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: v.color_value, border: '1px solid rgba(0,0,0,0.1)' }} />}
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <Button variant="secondary" onClick={() => setForm(f => ({ ...f, variants: [...f.variants, { sku: '', price: f.price, stock: '0', color_name: '', color_value: '', attribute_name: '', attribute_value: '' }] }))} style={{ alignSelf: 'flex-start' }}>
+                                            <Plus size={16} /> Add Variant Option
+                                        </Button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>

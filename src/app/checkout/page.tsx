@@ -81,6 +81,9 @@ export default function CheckoutPage() {
     const [address, setAddress] = useState({
         firstName: '', lastName: '', street: '', city: '', state: '', zip: '', country: 'India',
     });
+    const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+    const [savedAddresses, setSavedAddresses] = useState<any[]>([]);
+    const [showSavedAddresses, setShowSavedAddresses] = useState(false);
 
     // Shipping state
     const [selectedShipping, setSelectedShipping] = useState('standard');
@@ -91,19 +94,35 @@ export default function CheckoutPage() {
     });
 
     useEffect(() => {
-        const fetchSettings = async () => {
-            const { data } = await supabase.from('store_settings').select('*').eq('id', 'global').single();
-            if (data) {
+        const fetchStoreData = async () => {
+            // 1. Fetch Store Settings
+            const { data: settingsData } = await supabase.from('store_settings').select('*').eq('id', 'global').single();
+            if (settingsData) {
                 setStoreSettings({
-                    tax_rate: Number(data.tax_rate),
-                    free_shipping_threshold: Number(data.free_shipping_threshold)
+                    tax_rate: Number(settingsData.tax_rate),
+                    free_shipping_threshold: Number(settingsData.free_shipping_threshold)
                 });
             } else {
                 setStoreSettings({ tax_rate: 8, free_shipping_threshold: 150 });
             }
+
+            // 2. Fetch User's Saved Addresses
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data: addrData } = await supabase
+                    .from('addresses')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .order('created_at', { ascending: false });
+                
+                if (addrData) {
+                    setSavedAddresses(addrData);
+                }
+            }
+
             setMounted(true);
         };
-        fetchSettings();
+        fetchStoreData();
     }, [supabase]);
 
     if (!mounted || !storeSettings) {
@@ -152,33 +171,39 @@ export default function CheckoutPage() {
                 return;
             }
 
-            // 1. Create Address
-            const { data: addressData, error: addrErr } = await supabase
-                .from('addresses')
-                .insert({
-                    user_id: user.id,
-                    street: address.street,
-                    city: address.city,
-                    state: address.state,
-                    zip: address.zip,
-                    country: address.country,
-                })
-                .select()
-                .single();
+            let finalAddressId = selectedAddressId;
 
-            if (addrErr) throw new Error('Failed to save address: ' + addrErr.message);
+            // 1. Create Address if not using a saved one
+            if (!finalAddressId) {
+                const { data: addressData, error: addrErr } = await supabase
+                    .from('addresses')
+                    .insert({
+                        user_id: user.id,
+                        street: address.street,
+                        city: address.city,
+                        state: address.state,
+                        zip: address.zip,
+                        country: address.country,
+                    })
+                    .select()
+                    .single();
+
+                if (addrErr) throw new Error('Failed to save address: ' + addrErr.message);
+                finalAddressId = addressData.id;
+            }
 
             // 2. Create Order
             const { data: orderData, error: orderErr } = await supabase
                 .from('orders')
                 .insert({
                     user_id: user.id,
-                    address_id: addressData.id,
+                    address_id: finalAddressId,
                     status: 'pending',
                     payment_status: 'unpaid',
                     total_price: total,
                     tax_amount: tax,
                     shipping_amount: shippingCost,
+                    shipping_method: selectedShipping,
                 })
                 .select()
                 .single();
@@ -259,21 +284,57 @@ export default function CheckoutPage() {
                     {/* Step 1: Shipping Address */}
                     {currentStep === 1 && (
                         <GlassPanel className={styles.panel}>
-                            <h2 className={styles.sectionTitle}>
-                                <MapPin size={20} /> Shipping Address
-                            </h2>
+                            <div className={styles.sectionHeaderWrap}>
+                                <h2 className={styles.sectionTitle} style={{ marginBottom: 0 }}>
+                                    <MapPin size={20} /> Shipping Address
+                                </h2>
+                                {savedAddresses.length > 0 && (
+                                    <button 
+                                        className={styles.useSavedBtn}
+                                        onClick={() => setShowSavedAddresses(!showSavedAddresses)}
+                                    >
+                                        {showSavedAddresses ? 'Cancel' : '+ Use Saved'}
+                                    </button>
+                                )}
+                            </div>
+
+                            {showSavedAddresses && savedAddresses.length > 0 && (
+                                <div className={styles.savedAddressesList}>
+                                    {savedAddresses.map(addr => (
+                                        <div 
+                                            key={addr.id} 
+                                            className={styles.savedAddressCard}
+                                            onClick={() => {
+                                                setAddress(prev => ({
+                                                    ...prev,
+                                                    street: addr.street,
+                                                    city: addr.city,
+                                                setState: addr.state,
+                                                    zip: addr.zip,
+                                                }));
+                                                setSelectedAddressId(addr.id);
+                                                setShowSavedAddresses(false);
+                                            }}
+                                        >
+                                            <p className={styles.addressLine}>{addr.street}</p>
+                                            <p className={styles.addressLineSub}>{addr.city}, {addr.state} {addr.zip}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
                             <div className={styles.formGrid}>
-                                <Input placeholder="First Name" value={address.firstName} onChange={(e) => setAddress(a => ({ ...a, firstName: e.target.value }))} required />
-                                <Input placeholder="Last Name" value={address.lastName} onChange={(e) => setAddress(a => ({ ...a, lastName: e.target.value }))} required />
+                                <Input placeholder="First Name" value={address.firstName} onChange={(e) => { setAddress(a => ({ ...a, firstName: e.target.value })); setSelectedAddressId(null); }} required />
+                                <Input placeholder="Last Name" value={address.lastName} onChange={(e) => { setAddress(a => ({ ...a, lastName: e.target.value })); setSelectedAddressId(null); }} required />
                                 <div className={styles.fullWidth}>
-                                    <Input placeholder="Street Address" value={address.street} onChange={(e) => setAddress(a => ({ ...a, street: e.target.value }))} required />
+                                    <Input placeholder="Street Address" value={address.street} onChange={(e) => { setAddress(a => ({ ...a, street: e.target.value })); setSelectedAddressId(null); }} required />
                                 </div>
                                 <div className={styles.inputGroup}>
                                     <label className={styles.inputLabel}>State</label>
                                     <select
                                         className={styles.select}
                                         value={address.state}
-                                        onChange={(e) => setAddress(a => ({ ...a, state: e.target.value, city: '' }))}
+                                        onChange={(e) => { setAddress(a => ({ ...a, state: e.target.value, city: '' })); setSelectedAddressId(null); }}
                                         required
                                     >
                                         <option value="">Select State</option>
@@ -285,7 +346,7 @@ export default function CheckoutPage() {
                                     <select
                                         className={styles.select}
                                         value={address.city}
-                                        onChange={(e) => setAddress(a => ({ ...a, city: e.target.value }))}
+                                        onChange={(e) => { setAddress(a => ({ ...a, city: e.target.value })); setSelectedAddressId(null); }}
                                         disabled={!address.state}
                                         required
                                     >
@@ -293,7 +354,7 @@ export default function CheckoutPage() {
                                         {address.state && INDIA_LOCATIONS[address.state].sort().map(c => <option key={c} value={c}>{c}</option>)}
                                     </select>
                                 </div>
-                                <Input placeholder="ZIP Code" value={address.zip} onChange={(e) => setAddress(a => ({ ...a, zip: e.target.value }))} required />
+                                <Input placeholder="ZIP Code" value={address.zip} onChange={(e) => { setAddress(a => ({ ...a, zip: e.target.value })); setSelectedAddressId(null); }} required />
                                 <div className={styles.fullWidth}>
                                     <Input placeholder="Country" value={address.country} readOnly disabled />
                                 </div>

@@ -7,7 +7,6 @@ import { createClient } from '@/lib/supabase/client';
 import { GlassPanel } from '@/components/ui/GlassPanel';
 import { User, Package, Heart, MapPin, Settings, LogOut, Loader2 } from 'lucide-react';
 import { useUserStore } from '@/store/userStore';
-import { DebugStore } from './debug-store';
 import styles from './user.module.css';
 
 const NAV_ITEMS = [
@@ -24,13 +23,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
     const [supabase] = useState(() => createClient());
     const { user: globalUser, profile: globalProfile, isLoading, clearUser } = useUserStore();
 
-    if (typeof window !== 'undefined') {
-        const renders = (window as any).__renders || 0;
-        (window as any).__renders = renders + 1;
-        if (renders < 20) {
-            console.log('[UserLayout] render', { globalUser: !!globalUser, isLoading }, new Error().stack);
-        }
-    }
+
 
     useEffect(() => {
         if (!isLoading && !globalUser) {
@@ -53,7 +46,6 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
     if (isLoading) {
         return (
             <div className={styles.container} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <DebugStore />
                 <Loader2 size={32} style={{ animation: 'spin 1s linear infinite' }} />
             </div>
         );
