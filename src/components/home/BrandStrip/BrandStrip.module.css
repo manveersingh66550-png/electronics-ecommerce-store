@@ -186,3 +186,8 @@
         width: 60px;
     }
 }
+@media (max-width: 768px) {
+    .stripContainer {
+        padding: 0 2.5rem !important;
+    }
+}
