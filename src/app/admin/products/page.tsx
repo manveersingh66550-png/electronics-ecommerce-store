@@ -30,6 +30,8 @@ interface VariantForm {
     color_value: string;
     attribute_name: string;
     attribute_value: string;
+    attribute2_name: string;
+    attribute2_value: string;
 }
 
 const EMPTY_FORM = {
@@ -131,7 +133,7 @@ export default function AdminProducts() {
                 const variantPayloads = form.variants.map(v => ({
                     ...(v.id ? { id: v.id } : {}),
                     product_id: productId,
-                    name: `${form.name} - ${v.color_name || ''} ${v.attribute_value || ''}`.trim(),
+                    name: `${form.name} - ${v.color_name || ''} ${v.attribute_value || ''} ${v.attribute2_value || ''}`.trim(),
                     sku: v.sku || `SKU-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
                     price: parseFloat(v.price) || payload.price,
                     stock: parseInt(v.stock) || 0,
@@ -139,6 +141,8 @@ export default function AdminProducts() {
                     color_value: v.color_value || null,
                     attribute_name: v.attribute_name || null,
                     attribute_value: v.attribute_value || null,
+                    attribute2_name: v.attribute2_name || null,
+                    attribute2_value: v.attribute2_value || null,
                 }));
 
                 const { error: variantError } = await supabase
@@ -181,7 +185,7 @@ export default function AdminProducts() {
             imageFile: null,
             existingImage: p.images?.[0] || '',
             hasVariants: hasVariants || false,
-            variants: hasVariants ? variantsData.map(v => ({
+            variants: hasVariants ? (variantsData as any[]).map((v: any) => ({
                 id: v.id,
                 sku: v.sku || '',
                 price: String(v.price),
@@ -189,7 +193,9 @@ export default function AdminProducts() {
                 color_name: v.color_name || '',
                 color_value: v.color_value || '',
                 attribute_name: v.attribute_name || '',
-                attribute_value: v.attribute_value || ''
+                attribute_value: v.attribute_value || '',
+                attribute2_name: v.attribute2_name || '',
+                attribute2_value: v.attribute2_value || ''
             })) : []
         });
         setEditingId(p.id);
@@ -271,9 +277,9 @@ export default function AdminProducts() {
                                     <input 
                                         type="checkbox" 
                                         checked={form.hasVariants} 
-                                        onChange={(e) => setForm(f => ({ ...f, hasVariants: e.target.checked, variants: e.target.checked && f.variants.length === 0 ? [{ sku: '', price: f.price, stock: f.stock, color_name: '', color_value: '', attribute_name: '', attribute_value: '' }] : f.variants }))} 
+                                        onChange={(e) => setForm(f => ({ ...f, hasVariants: e.target.checked, variants: e.target.checked && f.variants.length === 0 ? [{ sku: '', price: f.price, stock: f.stock, color_name: '', color_value: '', attribute_name: '', attribute_value: '', attribute2_name: '', attribute2_value: '' }] : f.variants }))} 
                                     />
-                                    Product has variations (Colors, Storage, Sizes)
+                                    Product has variations (Colors, Storage, RAM)
                                 </label>
                                 
                                 {form.hasVariants && (
@@ -287,8 +293,10 @@ export default function AdminProducts() {
                                                 <Input placeholder="SKU" value={v.sku} onChange={(e) => { const nv = [...form.variants]; nv[i].sku = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
                                                 <Input placeholder="Price Override" type="number" value={v.price} onChange={(e) => { const nv = [...form.variants]; nv[i].price = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
                                                 <Input placeholder="Stock" type="number" value={v.stock} onChange={(e) => { const nv = [...form.variants]; nv[i].stock = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
-                                                <Input placeholder="Attribute Name (e.g. Storage)" value={v.attribute_name} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute_name = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
-                                                <Input placeholder="Attribute Value (e.g. 256GB)" value={v.attribute_value} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute_value = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Attr 1 Name (e.g. RAM)" value={v.attribute_name} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute_name = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Attr 1 Value (e.g. 16GB)" value={v.attribute_value} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute_value = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Attr 2 Name (e.g. Storage)" value={v.attribute2_name} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute2_name = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
+                                                <Input placeholder="Attr 2 Value (e.g. 1TB)" value={v.attribute2_value} onChange={(e) => { const nv = [...form.variants]; nv[i].attribute2_value = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
                                                 <Input placeholder="Color Name (e.g. Space Gray)" value={v.color_name} onChange={(e) => { const nv = [...form.variants]; nv[i].color_name = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                     <Input placeholder="Hex Code (e.g. #000000)" value={v.color_value} onChange={(e) => { const nv = [...form.variants]; nv[i].color_value = e.target.value; setForm(f => ({ ...f, variants: nv })); }} />
@@ -296,7 +304,7 @@ export default function AdminProducts() {
                                                 </div>
                                             </div>
                                         ))}
-                                        <Button variant="secondary" onClick={() => setForm(f => ({ ...f, variants: [...f.variants, { sku: '', price: f.price, stock: '0', color_name: '', color_value: '', attribute_name: '', attribute_value: '' }] }))} style={{ alignSelf: 'flex-start' }}>
+                                        <Button variant="secondary" onClick={() => setForm(f => ({ ...f, variants: [...f.variants, { sku: '', price: f.price, stock: '0', color_name: '', color_value: '', attribute_name: '', attribute_value: '', attribute2_name: '', attribute2_value: '' }] }))} style={{ alignSelf: 'flex-start' }}>
                                             <Plus size={16} /> Add Variant Option
                                         </Button>
                                     </div>
